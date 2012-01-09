@@ -11,7 +11,7 @@ module Maildo::Message
       /^DONE \[(\w+)\]\s+(.+?)\s+$/ => nil,
       /^ADD \[(\w+)\]\s+(.+?)\s+$/ => nil,
       /^LIST \[(\w+)\]\s+$/ => nil,
-      /^SUBSCRIBE \[(\w+)\]$/ => Maildo::Message::Subscription,                                                                        
+      /^SUBSCRIBE \[(\w+)\]$/ => Maildo::Message::Subscribe,
       /^UNSUBSCRIBE \[(\w+)\]$/ => nil
     }
 

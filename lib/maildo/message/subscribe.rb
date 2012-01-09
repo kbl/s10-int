@@ -1,7 +1,7 @@
 require 'maildo'
 
 module Maildo::Message
-  class Subscription
+  class Subscribe
     
     attr_reader :list_id
 
