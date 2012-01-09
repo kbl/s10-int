@@ -1,14 +1,14 @@
 module Maildo
   class Dispatcher
 
-    attr_reader :validator
+    attr_reader :parser
 
-    def initialize(validator = Message::Validator.new)
-      @validator = validator
+    def initialize(parser = Message::Parser.new)
+      @parser = parser
     end
 
     def dispatch(message)
-      validator.validate(message.subject)
+      parser.parse(message.subject)
     end
 
   end
