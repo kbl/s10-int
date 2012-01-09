@@ -1,3 +1,5 @@
+require 'maildo'
+
 module Maildo::Message
 
   class MalformedSubjectError < RuntimeError
@@ -5,19 +7,19 @@ module Maildo::Message
 
   class Parser
 
-    VALID_SUBJECTS = [
-      /^DONE \[(\w+)\]\s+(.+?)\s+$/,
-      /^ADD \[(\w+)\]\s+(.+?)\s+$/,
-      /^LIST \[(\w+)\]\s+$/,
-      /^SUBSCRIBE \[(\w+)\]$/,
-      /^UNSUBSCRIBE \[(\w+)\]$/
-    ]
+    VALID_SUBJECTS = {
+      /^DONE \[(\w+)\]\s+(.+?)\s+$/ => nil,
+      /^ADD \[(\w+)\]\s+(.+?)\s+$/ => nil,
+      /^LIST \[(\w+)\]\s+$/ => nil,
+      /^SUBSCRIBE \[(\w+)\]$/ => Maildo::Message::Subscription,                                                                        
+      /^UNSUBSCRIBE \[(\w+)\]$/ => nil
+    }
 
     def parse(subject)
-      valid = false
-      VALID_SUBJECTS.each do |re|
-        if re.match(subject)
-          return Subscription.new($1)
+      VALID_SUBJECTS.each do |re, klass|
+        match = re.match(subject)
+        if match
+          return klass.new(*match.captures())
         end
       end
       raise MalformedSubjectError

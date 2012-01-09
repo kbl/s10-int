@@ -8,7 +8,8 @@ module Maildo::Message
     context 'subscribing' do
       it 'should properly parse subject' do
         message = subject.parse('SUBSCRIBE [my_list_id]')
-        message.should be_a Subscription
+        message.should be_a Subscription    
+        message.list_id.should == 'my_list_id'
       end
     end
 

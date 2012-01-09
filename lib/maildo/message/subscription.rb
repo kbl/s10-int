@@ -8,6 +8,5 @@ module Maildo::Message
     def initialize(list_id)
       @list_id = list_id
     end
-      
   end
 end
