@@ -8,7 +8,9 @@ module Maildo
     def retrieve_and_delete_all
       messages = provider.all
       provider.delete_all
-      messages
+      messages.map do |msg|
+        {subject: msg.subject, from: msg.from[0]}
+      end
     end
 
     private
