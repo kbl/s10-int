@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Todo::Message
+module Maildo::Message
   describe Subscription do
   end
 end
