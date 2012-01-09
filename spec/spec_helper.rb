@@ -2,6 +2,7 @@ require 'maildo'
 
 Mail.defaults do
   delivery_method :test
+  retriever_method :test
 end
 
 RSpec.configure do |config|
