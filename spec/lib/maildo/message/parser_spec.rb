@@ -13,6 +13,22 @@ module Maildo::Message
       end
     end
 
+    context 'unsubscribe' do
+      it 'should properly parse subject' do
+        message = subject.parse('UNSUBSCRIBE [list_id]')
+        message.should be_a Unsubscribe
+        message.list_id.should == 'list_id'
+      end
+    end
+
+    context 'list' do
+      it 'should properly parse subject' do
+        message = subject.parse('LIST [list_id_22]')
+        message.should be_a List
+        message.list_id.should == 'list_id_22'
+      end
+    end
+
     context 'add' do
       it 'should properly parse subject' do
         m = subject.parse('ADD [2xjjyyz] todo message')

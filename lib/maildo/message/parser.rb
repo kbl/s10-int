@@ -10,9 +10,9 @@ module Maildo::Message
     VALID_SUBJECTS = {
       /^DONE \[(\w+)\]\s+(.+?)\s*$/ => Maildo::Message::Done,
       /^ADD \[(\w+)\]\s+(.+?)\s*$/ => Maildo::Message::Add,
-      /^LIST \[(\w+)\]\s+$/ => nil,
-      /^SUBSCRIBE \[(\w+)\]$/ => Maildo::Message::Subscribe,
-      /^UNSUBSCRIBE \[(\w+)\]$/ => nil
+      /^LIST \[(\w+)\]\s*$/ => Maildo::Message::List,
+      /^SUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Subscribe,
+      /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
     }
 
     def parse(subject)

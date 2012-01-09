@@ -1,5 +1,5 @@
 module Maildo::Message
-  class Subscribe
+  class List
     
     attr_reader :list_id
 
