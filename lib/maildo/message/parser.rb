@@ -8,8 +8,8 @@ module Maildo::Message
   class Parser
 
     VALID_SUBJECTS = {
-      /^DONE \[(\w+)\]\s+(.+?)\s+$/ => nil,
-      /^ADD \[(\w+)\]\s+(.+?)\s+$/ => nil,
+      /^DONE \[(\w+)\]\s+(.+?)\s*$/ => nil,
+      /^ADD \[(\w+)\]\s+(.+?)\s*$/ => Maildo::Message::Add,
       /^LIST \[(\w+)\]\s+$/ => nil,
       /^SUBSCRIBE \[(\w+)\]$/ => Maildo::Message::Subscribe,
       /^UNSUBSCRIBE \[(\w+)\]$/ => nil
