@@ -6,6 +6,7 @@ module Maildo
 
   require 'maildo/message/subscribe'
   require 'maildo/message/add'
+  require 'maildo/message/done'
 
   require 'maildo/message/parser'
 

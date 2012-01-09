@@ -15,9 +15,9 @@ module Maildo::Message
 
     context 'add' do
       it 'should properly parse subject' do
-        m = subject.parse('ADD [xjjyyz] todo message')
+        m = subject.parse('ADD [2xjjyyz] todo message')
         m.should be_a Add
-        m.list_id.should == 'xjjyyz'
+        m.list_id.should == '2xjjyyz'
         m.body.should == 'todo message'
       end
 
@@ -27,10 +27,25 @@ module Maildo::Message
       end
     end
 
-    it 'should throw error on invalid title' do
-      lambda {
-        subject.parse('invelid subject')
-      }.should raise_error(MalformedSubjectError)
+    context 'done' do
+      it 'should properly parse subject' do
+        m = subject.parse('DONE [list_id] <task id>')
+        m.should be_a Done
+        m.list_id.should == 'list_id'
+        m.task_id.should == '<task id>'
+      end
+      it 'should strip spaces from task identifier' do
+        m = subject.parse('DONE [x]      #12  ')
+        m.task_id.should == '#12'
+      end
+    end
+
+    context 'malformed subject' do
+      it 'should trow error on invalida action' do
+        lambda {
+          subject.parse('INVALID_ACTION [id]')
+        }.should raise_error(MalformedSubjectError)
+      end
     end
 
   end
