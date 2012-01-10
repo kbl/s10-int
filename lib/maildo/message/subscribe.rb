@@ -12,18 +12,19 @@ module Maildo::Message
     def initialize(sender, list_id)
       super(sender)
       @list_id = list_id
+      @subscription_list = Maildo::List::Subscribers.new(list_id)
     end
 
     def execute
-      if subscribers(list_id).include?(sender)
+      if subscription_list.subscribed?(sender)
         raise AlreadySubscribedError
       end
-      subscribe(list_id, sender)
+      subscription_list.subscribe(sender)
     end
 
     private
 
-    include Maildo::List::SubscriptionManager
+    attr_reader :subscription_list
 
   end
 end
