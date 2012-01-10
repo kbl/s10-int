@@ -10,8 +10,10 @@ module Maildo
   require 'maildo/list/tasks'
 
   require 'maildo/message/sender_aware_message'
+  require 'maildo/message/subscribers_aware_message'
   require 'maildo/message/subscribe'
   require 'maildo/message/unsubscribe'
+  require 'maildo/message/tasks_aware_message'
   require 'maildo/message/add'
   require 'maildo/message/done'
   require 'maildo/message/list'
