@@ -7,6 +7,7 @@ module Maildo
 
   require 'maildo/list/file_content'
   require 'maildo/list/subscribers'
+  require 'maildo/list/tasks'
 
   require 'maildo/message/base'
   require 'maildo/message/subscribe'
