@@ -9,7 +9,8 @@ module Maildo
     def tick
       mails = mail_server.retrieve_and_delete_all
       mails.each do |mail|
-        dispatch(mail)
+        message = dispatch(mail)
+        message.execute
       end
     end
 
