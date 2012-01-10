@@ -28,12 +28,5 @@ module Maildo
       provider
     end
 
-    def email(f, s)
-      Mail.new do
-        from f
-        subject s
-      end
-    end
-
   end
 end

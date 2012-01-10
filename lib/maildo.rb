@@ -5,6 +5,7 @@ module Maildo
   require 'maildo/mail_server'
   require 'maildo/dispatcher'
 
+  require 'maildo/message/base'
   require 'maildo/message/subscribe'
   require 'maildo/message/unsubscribe'
   require 'maildo/message/add'

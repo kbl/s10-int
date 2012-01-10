@@ -15,7 +15,7 @@ module Maildo
     attr_reader :parser, :mail_server
 
     def dispatch(message)
-      parser.parse(message.subject)
+      parser.parse(message)
     end
 
   end

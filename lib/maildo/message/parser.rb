@@ -15,11 +15,14 @@ module Maildo::Message
       /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
     }
 
-    def parse(subject)
+    FIRST_SENDER = 0
+
+    def parse(message)
       VALID_SUBJECTS.each do |re, klass|
-        match = re.match(subject)
+        match = re.match(message.subject)
         if match
-          return klass.new(*match.captures())
+          sender_with_additional_params = [message.from[FIRST_SENDER]] + match.captures()
+          return klass.new(*sender_with_additional_params)
         end
       end
       raise MalformedSubjectError
