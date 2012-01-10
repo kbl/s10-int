@@ -1,5 +1,5 @@
 module Maildo::Message
-  class Done < Base
+  class Done < SenderAwareMessage
     
     attr_reader :list_id, :task_id
 

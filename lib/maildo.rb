@@ -9,7 +9,7 @@ module Maildo
   require 'maildo/list/subscribers'
   require 'maildo/list/tasks'
 
-  require 'maildo/message/base'
+  require 'maildo/message/sender_aware_message'
   require 'maildo/message/subscribe'
   require 'maildo/message/unsubscribe'
   require 'maildo/message/add'

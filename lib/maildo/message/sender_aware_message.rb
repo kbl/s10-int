@@ -1,5 +1,5 @@
 module Maildo::Message
-  class Base
+  class SenderAwareMessage
 
     attr_reader :sender
 

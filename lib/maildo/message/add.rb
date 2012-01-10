@@ -1,7 +1,7 @@
 require 'maildo'
 
 module Maildo::Message
-  class Add < Base
+  class Add < SenderAwareMessage
     
     attr_reader :list_id, :body
 

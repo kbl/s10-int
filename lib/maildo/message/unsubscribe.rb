@@ -3,7 +3,7 @@ module Maildo::Message
   class NotYetSubscribedError < RuntimeError
   end
 
-  class Unsubscribe < Base
+  class Unsubscribe < SenderAwareMessage
 
     attr_reader :list_id
 

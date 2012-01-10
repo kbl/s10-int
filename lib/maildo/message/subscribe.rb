@@ -5,7 +5,7 @@ module Maildo::Message
   class AlreadySubscribedError < RuntimeError
   end
 
-  class Subscribe < Base
+  class Subscribe < SenderAwareMessage
 
     attr_reader :list_id
 
