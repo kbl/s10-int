@@ -7,6 +7,7 @@ module Maildo::Message
 
     def execute
       super
+      tasks.tasks
     end
 
   end
