@@ -17,3 +17,18 @@ def email(f, s)
     subject s
   end
 end
+
+module Maildo::Config
+
+  TODO_LISTS_PATH = File.join(File.dirname(__FILE__), 'test-lists')
+
+end
+
+def empty_test_list_dir
+  Dir.new(Maildo::Config::TODO_LISTS_PATH).each do |f|
+    if f =~ /-subscribers$/
+      path = File.join(Maildo::Config::TODO_LISTS_PATH, f)
+      File.delete(path)
+    end
+  end
+end
