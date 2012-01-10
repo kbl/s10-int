@@ -1,6 +1,8 @@
 module Maildo::List
   class Subscribers
 
+    include Maildo::List::FileContent
+
     SUBSCRIBERS_FILE_SUFFIX = '-subscribers'
 
     def initialize(list_id)
@@ -17,9 +19,7 @@ module Maildo::List
     def unsubscribe(subscriber)
       s = subscribers
       s.delete(subscriber)
-      File.open(path, 'w') do |f|
-        s.each { |subscriber| f.puts(subscriber) }
-      end
+      replace_content(path, s)
     end
 
     def subscribed?(subscriber)
@@ -27,14 +27,7 @@ module Maildo::List
     end
 
     def subscribers
-      subscribers = []
-
-      if File.exists?(path)
-        File.open(path) do |f|
-          f.each { |subscriber| subscribers << subscriber.chomp }
-        end
-      end
-      subscribers
+      content(path)
     end
 
     private
