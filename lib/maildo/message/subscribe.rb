@@ -12,9 +12,7 @@ module Maildo::Message
     end
 
     def execute
-      if subscribers.subscribed?(sender)
-        raise AlreadySubscribedError
-      end
+      raise AlreadySubscribedError if subscribers.subscribed?(sender)
       subscribers.subscribe(sender)
     end
 

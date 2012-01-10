@@ -9,7 +9,7 @@ module Maildo
       messages = provider.all
       provider.delete_all
       messages.map do |msg|
-        {subject: msg.subject, from: msg.from[0]}
+        { subject: msg.subject, from: msg.from[0] }
       end
     end
 

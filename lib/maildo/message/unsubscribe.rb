@@ -10,9 +10,7 @@ module Maildo::Message
     end
 
     def execute
-      unless subscribers.subscribed?(sender)
-        raise NotYetSubscribedError
-      end
+      raise NotYetSubscribedError unless subscribers.subscribed?(sender)
       subscribers.unsubscribe(sender)
     end
 
