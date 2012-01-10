@@ -15,7 +15,7 @@ module Maildo::Message
     end
 
     context 'subscribed' do
-      before(:each) { Subscribe.new('joe@smith.com', 'id7').execute }
+      before(:each) { Subscribe.new(SENDER, LIST_ID).execute }
 
       it 'should done task by 1 based index' do
         add_task('task')
@@ -45,7 +45,7 @@ module Maildo::Message
     end
 
     def add_task(task)
-        Add.new(SENDER, LIST_ID, task).execute
+      Add.new(SENDER, LIST_ID, task).execute
     end
 
   end
