@@ -17,6 +17,7 @@ module Maildo::Message
       unless subscription_list.subscribed?(sender)
         raise NotYetSubscribedError
       end
+      subscription_list.unsubscribe(sender)
     end
 
     private

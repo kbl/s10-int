@@ -12,6 +12,14 @@ module Maildo::List
       end
     end
 
+    def unsubscribe(subscriber)
+      s = subscribers
+      s.delete(subscriber)
+      File.open(path, 'w') do |f|
+        s.each { |subscriber| f.puts(subscriber) }
+      end
+    end
+
     def subscribed?(subscriber)
       subscribers.include?(subscriber)
     end
