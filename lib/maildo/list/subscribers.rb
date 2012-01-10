@@ -1,6 +1,8 @@
 module Maildo::List
   class Subscribers
 
+    SUBSCRIBERS_FILE_SUFFIX = '-subscribers'
+
     def initialize(list_id)
       @list_id = list_id
       @path = subscribers_file_path(list_id)
@@ -38,8 +40,6 @@ module Maildo::List
     private
 
     attr_reader :list_id, :path
-
-    SUBSCRIBERS_FILE_SUFFIX = '-subscribers'
 
     def subscribers_file_path(list_id)
       File.join(

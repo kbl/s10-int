@@ -65,6 +65,12 @@ module Maildo::Message
           subject.parse(email('zz@pp.pl', 'INVALID_ACTION [id]'))
         }.should raise_error(MalformedSubjectError)
       end
+
+      it 'should be prohibited to create list with same name as subscribers file' do
+        lambda {
+          subject.parse(email('zz@pp.pl', 'ADD [id-subscribers]'))
+        }.should raise_error(MalformedSubjectError)
+      end
     end
 
   end
