@@ -1,4 +1,5 @@
 module Maildo::List
+
   class Tasks
 
     include Maildo::List::FileContent
@@ -12,6 +13,14 @@ module Maildo::List
       File.open(path, 'a') do |f|
         f.puts(task)
       end
+    end
+
+    def done(one_based_task_index)
+      t = tasks
+      index = one_based_task_index - 1
+
+      t.delete_at(index)
+      replace_content(path, t)
     end
 
     def tasks

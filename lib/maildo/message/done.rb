@@ -10,6 +10,7 @@ module Maildo::Message
 
     def execute
       super
+      tasks.done(task_id.to_i)
     end
 
   end

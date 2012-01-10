@@ -18,7 +18,6 @@ module Maildo::Message
       before(:each) { Subscribe.new('joe@smith.com', 'id7').execute }
 
       it 'should done task by 1 based index' do
-        pending
         add_task('task')
         add_task('to be done')
         add_task('really hard task')
