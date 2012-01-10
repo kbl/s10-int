@@ -1,5 +1,8 @@
 module Maildo::List
 
+  class IllegalTaskIdentifierError < RuntimeError
+  end
+
   class Tasks
 
     include Maildo::List::FileContent
@@ -18,6 +21,9 @@ module Maildo::List
     def done(one_based_task_index)
       t = tasks
       index = one_based_task_index - 1
+      index_invalid = index < 0 || index >= t.length
+
+      raise IllegalTaskIdentifierError if index_invalid
 
       t.delete_at(index)
       replace_content(path, t)

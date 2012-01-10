@@ -26,6 +26,22 @@ module Maildo::Message
         Done.new(SENDER, LIST_ID, '2').execute
         tasks(LIST_ID).should == ['task', 'really hard task']
       end
+
+      context 'illegal task identifier' do
+        it 'should throw error for index <= 0' do
+          add_task('task')
+          lambda {
+            Done.new(SENDER, LIST_ID, '0').execute
+          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+        end
+
+        it 'should throw error for index > task.length' do
+          add_task('task')
+          lambda {
+            Done.new(SENDER, LIST_ID, '2').execute
+          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+        end
+      end
     end
 
     def add_task(task)
