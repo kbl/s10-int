@@ -1,12 +1,16 @@
 module Maildo::Message
-  class Done < SenderAwareMessage
+  class Done < TasksAwareMessage
     
-    attr_reader :list_id, :task_id
+    attr_reader :task_id
 
     def initialize(sender, list_id, task_id)
-      super(sender)
-      @list_id = list_id
+      super(sender, list_id)
       @task_id = task_id
     end
+
+    def execute
+      super
+    end
+
   end
 end
