@@ -3,14 +3,13 @@ require 'spec_helper'
 module Maildo
   describe Dispatcher do
 
-    subject { Dispatcher.new }
-
     it 'should throw error on bad subject pattern' do
-      pending
-      mail = Mail.new
-      mail.subject = 'invalid subject'
+      mail_server = mock
+      mail_server.stub!(:retrieve_and_delete_all).and_return([email('from@sender.com', 'illegal subject')])
+      dispatcher = Dispatcher.new(mail_server)
+
       lambda {
-        subject.dispatch(mail)
+        dispatcher.tick()
       }.should raise_error(Message::MalformedSubjectError)
     end
   end
