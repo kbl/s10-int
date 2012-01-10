@@ -3,7 +3,7 @@ require 'spec_helper'
 module Maildo::Message
   describe Subscribe do
 
-    after(:each) { empty_test_list_dir() }
+    after(:each) { empty_test_list_dir }
 
     it 'should create subscribers file with proper name' do
       s = Subscribe.new('joe@smith.com', 'list_id')

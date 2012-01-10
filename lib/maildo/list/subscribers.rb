@@ -21,7 +21,7 @@ module Maildo::List
 
       if File.exists?(path)
         File.open(path) do |f|
-          f.each { |subscriber| subscribers << subscriber.chomp() }
+          f.each { |subscriber| subscribers << subscriber.chomp }
         end
       end
       subscribers
