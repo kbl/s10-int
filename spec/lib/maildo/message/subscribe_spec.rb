@@ -22,5 +22,21 @@ module Maildo::Message
       }.should raise_error(AlreadySubscribedError)
     end
 
+    it 'should properly subscribe many users to same list' do
+      Subscribe.new('joe@smith.com', 'list_id').execute
+      Subscribe.new('joe@lenon.com', 'list_id').execute
+
+      subscribers('list_id').should == %w(joe@smith.com joe@lenon.com)
+    end
+
+    it 'should properly subscribe many users to different lists' do
+      Subscribe.new('joe@smith.com', 'list_id').execute
+      Subscribe.new('joe@smith.com', 'list_id2').execute
+      Subscribe.new('joe@lenon.com', 'list_id').execute
+
+      subscribers('list_id').should == %w(joe@smith.com joe@lenon.com)
+      subscribers('list_id2').should == ['joe@smith.com']
+    end
+
   end
 end

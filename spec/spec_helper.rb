@@ -32,3 +32,7 @@ def empty_test_list_dir
     end
   end
 end
+
+def subscribers(list_id)
+  Maildo::List::Subscribers.new(list_id).subscribers
+end
