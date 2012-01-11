@@ -12,11 +12,9 @@ module Maildo::Message
       /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
     }
 
-    FIRST_SENDER = 0
-
     def parse(message)
-      subject = message.subject
-      from = message.from[FIRST_SENDER]
+      subject = message[:subject]
+      from = message[:from]
 
       VALID_SUBJECTS.each do |re, klass|
         match = re.match(subject)

@@ -12,10 +12,7 @@ RSpec.configure do |config|
 end
 
 def email(f, s)
-  Mail.new do
-    from f
-    subject s
-  end
+  { subject: s, from: f }
 end
 
 module Maildo::Config

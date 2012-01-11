@@ -12,6 +12,7 @@ module Maildo::Message
       m.to = to
       m.subject = subject
       m.body = body
+      m.from = Maildo::Config::SENDER
 
       m
     end

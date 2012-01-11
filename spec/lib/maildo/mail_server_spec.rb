@@ -4,7 +4,7 @@ module Maildo
   describe MailServer do
 
     it 'should retrieve and delete all messages' do
-      emails = [email('address', 'subject')]
+      emails = [mail('address', 'subject')]
       provider = prepare_mock(emails)
       server = MailServer.new(provider)
 
@@ -12,7 +12,7 @@ module Maildo
     end
 
     it 'should retrive only subject and sender from incoming emails' do
-      emails = [email('test@email.com', 'subject1'), email('testing@gmail.com', 'subject2')]
+      emails = [mail('test@email.com', 'subject1'), mail('testing@gmail.com', 'subject2')]
       provider = prepare_mock(emails)
       server = MailServer.new(provider)
 
@@ -28,5 +28,11 @@ module Maildo
       provider
     end
 
+    def mail(f, s)
+      Mail.new do
+        from f
+        subject s
+      end
+    end
   end
 end
