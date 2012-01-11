@@ -12,6 +12,7 @@ module Maildo::Message
       response = list
       response.subject.should == 'Access denied'
       response.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      response.to.should == SENDER
     end
 
     context 'subscribed' do
@@ -24,6 +25,7 @@ module Maildo::Message
 
         response = list
         response.subject.should == "Todo list #{LIST_ID}"
+        response.to.should == SENDER
         response.body.should == 
 <<-STR
 List contains following tasks:

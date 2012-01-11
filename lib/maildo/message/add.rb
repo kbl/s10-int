@@ -15,7 +15,7 @@ module Maildo::Message
       return response if response
 
       tasks.add(body)
-      Response.new('Task added', "Task #{body} successfully added to list #{list_id}.")
+      response('Task added', "Task #{body} successfully added to list #{list_id}.")
     end
 
   end

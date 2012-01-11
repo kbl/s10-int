@@ -9,16 +9,18 @@ module Maildo::Message
     after(:each) { empty_test_list_dir }
 
     it 'should return access denied response while trying to unsubscribe from list to which sender is not subscribed' do
-      response = unsubscribe
-      response.subject.should == 'Access denied'
-      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      r = unsubscribe
+      r.subject.should == 'Access denied'
+      r.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      r.to.should == SENDER
     end
     
     it 'should return succesfull unsubscription response' do
       Subscribe.new(SENDER, LIST_ID).execute
-      response = unsubscribe
-      response.subject.should == 'Unsubscribed successfully'
-      response.body.should == "You are now unsubscribed from list [#{LIST_ID}]."
+      r = unsubscribe
+      r.subject.should == 'Unsubscribed successfully'
+      r.body.should == "You are now unsubscribed from list [#{LIST_ID}]."
+      r.to.should == SENDER
     end
 
     it 'should properly unsubscribe user' do

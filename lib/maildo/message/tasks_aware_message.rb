@@ -8,7 +8,7 @@ module Maildo::Message
 
     def execute
       unless subscribers.subscribed?(sender)
-        return Response.new('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}].")
+        response('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}].")
       end
     end
 

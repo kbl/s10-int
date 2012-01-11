@@ -12,6 +12,7 @@ module Maildo::Message
       response = Done.new(SENDER, LIST_ID, 'task').execute
       response.subject.should == 'Access denied'
       response.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      response.to.should == SENDER
     end
 
     context 'subscribed' do
@@ -32,6 +33,7 @@ module Maildo::Message
         response = done('1')
         response.subject.should == 'Task done'
         response.body.should == 'Task with number 1 (read whole internet) was done.'
+        response.to.should == SENDER
       end
 
       context 'illegal task identifier' do

@@ -10,7 +10,7 @@ module Maildo::Message
       return response if response
 
       t = tasks.tasks
-      Response.new("Todo list #{list_id}", response_body(t))
+      response("Todo list #{list_id}", response_body(t))
     end
 
     private

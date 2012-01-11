@@ -14,7 +14,7 @@ module Maildo::Message
 
       task = tasks.done(task_id)
 
-      Response.new('Task done', "Task with number #{task_id} (#{task}) was done.")
+      response('Task done', "Task with number #{task_id} (#{task}) was done.")
     end
 
   end

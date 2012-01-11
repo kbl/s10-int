@@ -12,6 +12,7 @@ module Maildo::Message
       response = add_task('task')
       response.subject.should == 'Access denied'
       response.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      response.to.should == SENDER
     end
 
     context 'subscribed' do
@@ -28,6 +29,7 @@ module Maildo::Message
         response = add_task('aa_bb cc_dd')
         response.subject.should == 'Task added'
         response.body.should == "Task aa_bb cc_dd successfully added to list #{LIST_ID}."
+        response.to.should == SENDER
       end
     end
 

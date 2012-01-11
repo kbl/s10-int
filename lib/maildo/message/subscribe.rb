@@ -9,10 +9,10 @@ module Maildo::Message
 
     def execute
       if subscribers.subscribed?(sender)
-        return Response.new('Illegal action', "You are already subscribed to list [#{list_id}].")
+        return response('Illegal action', "You are already subscribed to list [#{list_id}].")
       end
       subscribers.subscribe(sender)
-      Response.new('Subscribed successfully', "You are currently subscribed to list [#{list_id}].")
+      response('Subscribed successfully', "You are currently subscribed to list [#{list_id}].")
     end
 
   end

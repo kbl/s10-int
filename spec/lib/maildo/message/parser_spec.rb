@@ -65,6 +65,7 @@ module Maildo::Message
         response = m.execute
         response.subject.should == 'Illegal message'
         response.body.should == 'Message [INVALID_ACTION [id]] could not be processed successfully.'
+        response.to.should == 'zz@pp.pl'
       end
 
       it 'should return no-op message for invalid list id (with same name as subscribers file)' do
@@ -72,6 +73,7 @@ module Maildo::Message
         response = m.execute
         response.subject.should == 'Illegal message'
         response.body.should == 'Message [ADD [id-subscribers] task] could not be processed successfully.'
+        response.to.should == 'zz@pp.pl'
       end
     end
 

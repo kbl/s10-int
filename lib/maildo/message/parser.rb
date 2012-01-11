@@ -16,14 +16,16 @@ module Maildo::Message
 
     def parse(message)
       subject = message.subject
+      from = message.from[FIRST_SENDER]
+
       VALID_SUBJECTS.each do |re, klass|
         match = re.match(subject)
         if match
-          sender_with_additional_params = [message.from[FIRST_SENDER]] + match.captures()
+          sender_with_additional_params = [from] + match.captures()
           return klass.new(*sender_with_additional_params)
         end
       end
-      return Maildo::Message::NoOp.new(subject)
+      return Maildo::Message::NoOp.new(from, subject)
     end
 
   end

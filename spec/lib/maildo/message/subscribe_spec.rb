@@ -18,15 +18,17 @@ module Maildo::Message
       s = Subscribe.new('joe@smith.com', 'strange_list_id')
       s.execute
 
-      response = s.execute
-      response.subject.should == 'Illegal action'
-      response.body.should == 'You are already subscribed to list [strange_list_id].'
+      r = s.execute
+      r.subject.should == 'Illegal action'
+      r.body.should == 'You are already subscribed to list [strange_list_id].'
+      r.to.should == 'joe@smith.com'
     end
 
     it 'should return successful subscription response' do
-      response = Subscribe.new('joe@smith.com', 'strange_list_88').execute
-      response.subject.should == 'Subscribed successfully'
-      response.body.should == 'You are currently subscribed to list [strange_list_88].'
+      r = Subscribe.new('joe@smith.com', 'strange_list_88').execute
+      r.subject.should == 'Subscribed successfully'
+      r.body.should == 'You are currently subscribed to list [strange_list_88].'
+      r.to.should == 'joe@smith.com'
     end
 
     it 'should properly subscribe many users to same list' do

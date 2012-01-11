@@ -7,5 +7,11 @@ module Maildo::Message
       @sender = sender
     end
 
+    private
+
+    def response(subject, body)
+      Response.new(sender, subject, body)
+    end
+
   end
 end

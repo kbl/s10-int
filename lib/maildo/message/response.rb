@@ -1,10 +1,19 @@
 module Maildo::Message
   class Response
 
-    attr_reader :subject, :body
+    attr_reader :subject, :body, :to
 
-    def initialize(subject, body = nil)
-      @subject, @body = subject, body
+    def initialize(to, subject, body = nil)
+      @to, @subject, @body = to, subject, body
+    end
+
+    def mail
+      m = Mail.new
+      m.to = to
+      m.subject = subject
+      m.body = body
+
+      m
     end
 
   end
