@@ -12,7 +12,7 @@ module Maildo::Message
         return Response.new('Illegal action', "You are already subscribed to list [#{list_id}].")
       end
       subscribers.subscribe(sender)
-      Response.new('Subscription successfull', "You are currently subscribed to list [#{list_id}].")
+      Response.new('Subscribed successfully', "You are currently subscribed to list [#{list_id}].")
     end
 
   end

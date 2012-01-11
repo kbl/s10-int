@@ -25,7 +25,7 @@ module Maildo::Message
 
     it 'should return successful subscription response' do
       response = Subscribe.new('joe@smith.com', 'strange_list_88').execute
-      response.subject.should == 'Subscription successfull'
+      response.subject.should == 'Subscribed successfully'
       response.body.should == 'You are currently subscribed to list [strange_list_88].'
     end
 
