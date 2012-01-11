@@ -23,6 +23,12 @@ module Maildo::Message
 
         tasks(LIST_ID).should == ['task', 'really hard task']
       end
+
+      it 'should return response indicating successfull task addition' do
+        response = add_task('aa_bb cc_dd')
+        response.subject.should == 'Task added'
+        response.body.should == "Task aa_bb cc_dd successfully added to list #{LIST_ID}."
+      end
     end
 
     def add_task(task)
