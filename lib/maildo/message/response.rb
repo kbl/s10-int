@@ -17,5 +17,9 @@ module Maildo::Message
       m
     end
 
+    def to_s
+      "to: #{to} subject: #{subject} body: #{body}"
+    end
+
   end
 end

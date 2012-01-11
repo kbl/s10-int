@@ -1,5 +1,6 @@
 module Maildo
 
+  require 'logger'
   require 'mail'
   require 'maildo/config'
   require 'maildo/mail_server'
