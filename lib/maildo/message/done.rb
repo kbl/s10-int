@@ -12,7 +12,11 @@ module Maildo::Message
       response = super
       return response if response
 
-      task = tasks.done(task_id)
+      begin
+        task = tasks.done(task_id)
+      rescue Maildo::List::IllegalTaskIdentifierError
+        return response('Illegal action', "Task identifier [#{task_id}] is illegal.")
+      end
 
       response('Task done', "Task with number #{task_id} (#{task}) was done.")
     end

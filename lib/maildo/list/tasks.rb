@@ -19,6 +19,8 @@ module Maildo::List
     end
 
     def done(one_based_task_index)
+      raise IllegalTaskIdentifierError unless one_based_task_index =~ ONLY_NUMBERS
+
       t = tasks
       index = one_based_task_index.to_i - 1
       index_invalid = index < 0 || index >= t.length
@@ -35,6 +37,8 @@ module Maildo::List
     end
 
     private
+
+    ONLY_NUMBERS = /^\d+$/
 
     attr_reader :list_id, :path
 

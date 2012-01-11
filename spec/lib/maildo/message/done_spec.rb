@@ -9,10 +9,10 @@ module Maildo::Message
     after(:each) { empty_test_list_dir }
 
     it 'should return access denied response' do
-      response = Done.new(SENDER, LIST_ID, 'task').execute
-      response.subject.should == 'Access denied'
-      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
-      response.to.should == SENDER
+      r = done('task')
+      r.subject.should == 'Access denied'
+      r.body.should match /Please subscribe to \[#{LIST_ID}\]/
+      r.to.should == SENDER
     end
 
     context 'subscribed' do
@@ -30,33 +30,32 @@ module Maildo::Message
 
       it 'should return valid response object' do
         add_task('read whole internet')
-        response = done('1')
-        response.subject.should == 'Task done'
-        response.body.should == 'Task with number 1 (read whole internet) was done.'
-        response.to.should == SENDER
+        r = done('1')
+        r.subject.should == 'Task done'
+        r.body.should == 'Task with number 1 (read whole internet) was done.'
+        r.to.should == SENDER
       end
 
       context 'illegal task identifier' do
+
+        before(:each) { add_task('task') }
+
         it 'should throw error for index <= 0' do
-          add_task('task')
-          lambda {
-            done('0')
-          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+          r = done('0')
+          r.subject.should == 'Illegal action'
+          r.body.should == 'Task identifier [0] is illegal.'
         end
 
         it 'should throw error for index > task.length' do
-          add_task('task')
-          lambda {
-            done('2')
-          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+          r = done('2')
+          r.subject.should == 'Illegal action'
+          r.body.should == 'Task identifier [2] is illegal.'
         end
 
         it 'should do sth on wrong task identifier' do
-          pending
-          add_task('task')
-          lambda {
-            done('1wrong numer id')
-          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+          r = done('1wrong number id')
+          r.subject.should == 'Illegal action'
+          r.body.should == 'Task identifier [1wrong number id] is illegal.'
         end
       end
     end
