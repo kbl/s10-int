@@ -1,22 +1,24 @@
-module Maildo::Message
-  class NoOp
+module Maildo
+  module Message
+    class NoOp
 
-    def initialize(sender, subject)
-      @sender, @subject = sender, subject
+      def initialize(sender, subject)
+        @sender, @subject = sender, subject
+      end
+
+      def execute
+        response
+      end
+
+      private
+
+      attr_reader :subject, :sender
+
+      def response
+        return @response if @response
+        @response = Response.new(sender, 'Illegal message', "Message [#{subject}] could not be processed successfully.")
+      end
+
     end
-
-    def execute
-      response
-    end
-
-    private
-
-    attr_reader :subject, :sender
-
-    def response
-      return @response if @response
-      @response = Response.new(sender, 'Illegal message', "Message [#{subject}] could not be processed successfully.")
-    end
-
   end
 end
