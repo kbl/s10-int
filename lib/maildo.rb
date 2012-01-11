@@ -10,6 +10,7 @@ module Maildo
   require 'maildo/list/tasks'
 
   require 'maildo/message/response'
+  require 'maildo/message/no_op'
   require 'maildo/message/sender_aware_message'
   require 'maildo/message/subscribers_aware_message'
   require 'maildo/message/subscribe'

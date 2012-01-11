@@ -60,16 +60,18 @@ module Maildo::Message
     end
 
     context 'malformed subject' do
-      it 'should trow error on invalida action' do
-        lambda {
-          subject.parse(email('zz@pp.pl', 'INVALID_ACTION [id]'))
-        }.should raise_error(MalformedSubjectError)
+      it 'should return no-op message' do
+        m = subject.parse(email('zz@pp.pl', 'INVALID_ACTION [id]'))
+        response = m.execute
+        response.subject.should == 'Illegal message'
+        response.body.should == 'Message [INVALID_ACTION [id]] could not be processed successfully.'
       end
 
-      it 'should be prohibited to create list with same name as subscribers file' do
-        lambda {
-          subject.parse(email('zz@pp.pl', 'ADD [id-subscribers]'))
-        }.should raise_error(MalformedSubjectError)
+      it 'should return no-op message for invalid list id (with same name as subscribers file)' do
+        m =  subject.parse(email('zz@pp.pl', 'ADD [id-subscribers] task'))
+        response = m.execute
+        response.subject.should == 'Illegal message'
+        response.body.should == 'Message [ADD [id-subscribers] task] could not be processed successfully.'
       end
     end
 

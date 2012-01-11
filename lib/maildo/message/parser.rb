@@ -2,9 +2,6 @@ require 'maildo'
 
 module Maildo::Message
 
-  class MalformedSubjectError < RuntimeError
-  end
-
   class Parser
 
     VALID_SUBJECTS = {
@@ -18,14 +15,15 @@ module Maildo::Message
     FIRST_SENDER = 0
 
     def parse(message)
+      subject = message.subject
       VALID_SUBJECTS.each do |re, klass|
-        match = re.match(message.subject)
+        match = re.match(subject)
         if match
           sender_with_additional_params = [message.from[FIRST_SENDER]] + match.captures()
           return klass.new(*sender_with_additional_params)
         end
       end
-      raise MalformedSubjectError
+      return Maildo::Message::NoOp.new(subject)
     end
 
   end
