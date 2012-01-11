@@ -4,6 +4,8 @@ module Maildo::Config
 
   TODO_LISTS_PATH = '/tmp/todos'
 
+  PROBE_INTERVAL = 10
+
   Mail.defaults do
     retriever_method :imap,
                    { address: 'imap.gmail.com',
