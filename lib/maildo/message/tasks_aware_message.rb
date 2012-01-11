@@ -7,7 +7,9 @@ module Maildo::Message
     end
 
     def execute
-      raise NotYetSubscribedError unless subscribers.subscribed?(sender)
+      unless subscribers.subscribed?(sender)
+        return Response.new('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}]")
+      end
     end
 
     private

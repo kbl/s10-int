@@ -8,10 +8,10 @@ module Maildo::Message
 
     after(:each) { empty_test_list_dir }
 
-    it 'should throw error on changing task in unsubscribed list' do
-      lambda {
-        Done.new(SENDER, LIST_ID, 'task').execute
-      }.should raise_error NotYetSubscribedError
+    it 'should return access denied response' do
+      response = Done.new(SENDER, LIST_ID, 'task').execute
+      response.subject.should == 'Access denied'
+      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
     end
 
     context 'subscribed' do

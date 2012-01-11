@@ -6,7 +6,9 @@ module Maildo::Message
     end
 
     def execute
-      super
+      response = super
+      return response if response
+
       tasks.tasks
     end
 
