@@ -10,6 +10,7 @@ module Maildo::Message
         return Response.new('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}]")
       end
       subscribers.unsubscribe(sender)
+      Response.new('Unsubscribed successfully', "You are now unsubscribed from list [#{list_id}].")
     end
 
   end
