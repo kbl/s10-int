@@ -48,6 +48,14 @@ module Maildo::Message
             done('2')
           }.should raise_error Maildo::List::IllegalTaskIdentifierError
         end
+
+        it 'should do sth on wrong task identifier' do
+          pending
+          add_task('task')
+          lambda {
+            done('1wrong numer id')
+          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+        end
       end
     end
 
