@@ -19,7 +19,12 @@ module Maildo::List
     def unsubscribe(subscriber)
       s = subscribers
       s.delete(subscriber)
-      replace_content(path, s)
+
+      if s.length == 0
+        delete_unnecessary_files
+      else
+        replace_content(path, s)
+      end
     end
 
     def subscribed?(subscriber)
@@ -40,6 +45,13 @@ module Maildo::List
     private
 
     attr_reader :list_id, :path
+
+    def delete_unnecessary_files
+      File.delete(path)
+
+      tasks_path = Tasks.path(list_id)
+      File.delete(tasks_path) if File.exists?(tasks_path)
+    end
 
   end
 end

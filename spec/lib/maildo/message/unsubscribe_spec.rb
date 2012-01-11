@@ -42,6 +42,22 @@ module Maildo::Message
       subscribers('xyz_list').should == ['john@lenon.com']
     end
 
+    it 'should remove todo with subscribers files after last subscribent request unsubscription' do
+      Subscribe.new(SENDER, LIST_ID).execute
+      Add.new(SENDER, LIST_ID, 'task').execute
+      tasks_path = Maildo::List::Tasks.path(LIST_ID)
+      subscribers_path = Maildo::List::Subscribers.path(LIST_ID)
+
+      File.exists?(tasks_path).should == true
+      File.exists?(subscribers_path).should == true
+      subscribers(LIST_ID).length.should == 1
+
+      unsubscribe
+
+      File.exists?(subscribers_path).should == false
+      File.exists?(tasks_path).should == false
+    end
+
     def unsubscribe
       Unsubscribe.new(SENDER, LIST_ID).execute
     end
