@@ -1,10 +1,6 @@
 require 'maildo'
 
 module Maildo::Message
-
-  class AlreadySubscribedError < RuntimeError
-  end
-
   class Subscribe < SubscribersAwareMessage
 
     def initialize(sender, list_id)
@@ -12,8 +8,11 @@ module Maildo::Message
     end
 
     def execute
-      raise AlreadySubscribedError if subscribers.subscribed?(sender)
+      if subscribers.subscribed?(sender)
+        return Response.new('Illegal action', "You are already subscribed to list [#{list_id}].")
+      end
       subscribers.subscribe(sender)
+      Response.new('Subscription successfull', "You are currently subscribed to list [#{list_id}].")
     end
 
   end

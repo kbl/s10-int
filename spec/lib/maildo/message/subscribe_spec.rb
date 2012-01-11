@@ -7,19 +7,26 @@ module Maildo::Message
 
     it 'should create subscribers file with proper name' do
       s = Subscribe.new('joe@smith.com', 'list_id')
-      path =  File.join(Maildo::Config::TODO_LISTS_PATH, 'list_id-subscribers')
+      path = File.join(Maildo::Config::TODO_LISTS_PATH, 'list_id-subscribers')
 
       File.exists?(path).should == false
       s.execute
       File.exists?(path).should == true
     end
 
-    it 'should throw error if user is already subscribed' do
-      s = Subscribe.new('joe@smith.com', 'list_id')
+    it 'should return valid response for currently subscribed user' do
+      s = Subscribe.new('joe@smith.com', 'strange_list_id')
       s.execute
-      lambda {
-        s.execute
-      }.should raise_error(AlreadySubscribedError)
+
+      response = s.execute
+      response.subject.should == 'Illegal action'
+      response.body.should == 'You are already subscribed to list [strange_list_id].'
+    end
+
+    it 'should return successful subscription response' do
+      response = Subscribe.new('joe@smith.com', 'strange_list_88').execute
+      response.subject.should == 'Subscription successfull'
+      response.body.should == 'You are currently subscribed to list [strange_list_88].'
     end
 
     it 'should properly subscribe many users to same list' do
