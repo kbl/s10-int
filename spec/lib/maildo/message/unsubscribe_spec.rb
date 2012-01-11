@@ -42,20 +42,37 @@ module Maildo::Message
       subscribers('xyz_list').should == ['john@lenon.com']
     end
 
-    it 'should remove todo with subscribers files after last subscribent request unsubscription' do
-      Subscribe.new(SENDER, LIST_ID).execute
-      Add.new(SENDER, LIST_ID, 'task').execute
-      tasks_path = Maildo::List::Tasks.path(LIST_ID)
-      subscribers_path = Maildo::List::Subscribers.path(LIST_ID)
+    context 'file deletion' do
 
-      File.exists?(tasks_path).should == true
-      File.exists?(subscribers_path).should == true
-      subscribers(LIST_ID).length.should == 1
+      let(:tasks_path) { Maildo::List::Tasks.path(LIST_ID) }
+      let(:subscribers_path) { Maildo::List::Subscribers.path(LIST_ID) }
 
-      unsubscribe
+      it 'should remove todo with subscribers files after last subscribent request unsubscription' do
+        Subscribe.new(SENDER, LIST_ID).execute
+        Add.new(SENDER, LIST_ID, 'task').execute
 
-      File.exists?(subscribers_path).should == false
-      File.exists?(tasks_path).should == false
+        File.exists?(tasks_path).should == true
+        File.exists?(subscribers_path).should == true
+        subscribers(LIST_ID).length.should == 1
+
+        unsubscribe
+
+        File.exists?(subscribers_path).should == false
+        File.exists?(tasks_path).should == false
+      end
+
+      it 'shouldnt remove files if subscribers left' do
+        Subscribe.new(SENDER, LIST_ID).execute
+        Subscribe.new('xx@yy.pl', LIST_ID).execute
+
+        File.exists?(subscribers_path).should == true
+        subscribers(LIST_ID).length.should == 2
+
+        unsubscribe
+
+        File.exists?(subscribers_path).should == true
+        subscribers(LIST_ID).length.should == 1
+      end
     end
 
     def unsubscribe
