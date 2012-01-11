@@ -20,13 +20,14 @@ module Maildo::List
 
     def done(one_based_task_index)
       t = tasks
-      index = one_based_task_index - 1
+      index = one_based_task_index.to_i - 1
       index_invalid = index < 0 || index >= t.length
 
       raise IllegalTaskIdentifierError if index_invalid
 
-      t.delete_at(index)
+      task = t.delete_at(index)
       replace_content(path, t)
+      task
     end
 
     def tasks
