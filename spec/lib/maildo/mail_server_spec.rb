@@ -23,8 +23,7 @@ module Maildo
 
     def prepare_mock(emails)
       provider = mock
-      provider.stub!(:all).and_return(emails)
-      provider.should_receive(:delete_all)
+      provider.stub!(:find_and_delete).and_return(emails)
       provider
     end
 
