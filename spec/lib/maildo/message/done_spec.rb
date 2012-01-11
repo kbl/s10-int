@@ -8,10 +8,10 @@ module Maildo::Message
 
     after(:each) { empty_test_list_dir }
 
-    it 'should throw error on changing task in unsubscribed list' do
-      lambda {
-        Done.new(SENDER, LIST_ID, 'task').execute
-      }.should raise_error NotYetSubscribedError
+    it 'should return access denied response' do
+      response = Done.new(SENDER, LIST_ID, 'task').execute
+      response.subject.should == 'Access denied'
+      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
     end
 
     context 'subscribed' do
@@ -23,22 +23,37 @@ module Maildo::Message
         add_task('really hard task')
 
         tasks(LIST_ID).should == ['task', 'to be done', 'really hard task']
-        Done.new(SENDER, LIST_ID, '2').execute
+        done('2')
         tasks(LIST_ID).should == ['task', 'really hard task']
+      end
+
+      it 'should return valid response object' do
+        add_task('read whole internet')
+        response = done('1')
+        response.subject.should == 'Task done'
+        response.body.should == 'Task with number 1 (read whole internet) was done.'
       end
 
       context 'illegal task identifier' do
         it 'should throw error for index <= 0' do
           add_task('task')
           lambda {
-            Done.new(SENDER, LIST_ID, '0').execute
+            done('0')
           }.should raise_error Maildo::List::IllegalTaskIdentifierError
         end
 
         it 'should throw error for index > task.length' do
           add_task('task')
           lambda {
-            Done.new(SENDER, LIST_ID, '2').execute
+            done('2')
+          }.should raise_error Maildo::List::IllegalTaskIdentifierError
+        end
+
+        it 'should do sth on wrong task identifier' do
+          pending
+          add_task('task')
+          lambda {
+            done('1wrong numer id')
           }.should raise_error Maildo::List::IllegalTaskIdentifierError
         end
       end
@@ -46,6 +61,10 @@ module Maildo::Message
 
     def add_task(task)
       Add.new(SENDER, LIST_ID, task).execute
+    end
+
+    def done(task_id)
+      Done.new(SENDER, LIST_ID, task_id).execute
     end
 
   end

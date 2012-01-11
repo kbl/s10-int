@@ -11,8 +11,11 @@ module Maildo::Message
     end
 
     def execute
-      super
+      response = super
+      return response if response
+
       tasks.add(body)
+      Response.new('Task added', "Task #{body} successfully added to list #{list_id}.")
     end
 
   end

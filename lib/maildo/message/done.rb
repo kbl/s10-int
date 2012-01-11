@@ -9,8 +9,12 @@ module Maildo::Message
     end
 
     def execute
-      super
-      tasks.done(task_id.to_i)
+      response = super
+      return response if response
+
+      task = tasks.done(task_id)
+
+      Response.new('Task done', "Task with number #{task_id} (#{task}) was done.")
     end
 
   end

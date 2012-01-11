@@ -8,10 +8,10 @@ module Maildo::Message
 
     after(:each) { empty_test_list_dir }
 
-    it 'should throw error on adding task to unsubscribed list' do
-      lambda {
-        add_task('task')
-      }.should raise_error NotYetSubscribedError
+    it 'should return access denied response' do
+      response = add_task('task')
+      response.subject.should == 'Access denied'
+      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
     end
 
     context 'subscribed' do
@@ -22,6 +22,12 @@ module Maildo::Message
         add_task('really hard task')
 
         tasks(LIST_ID).should == ['task', 'really hard task']
+      end
+
+      it 'should return response indicating successfull task addition' do
+        response = add_task('aa_bb cc_dd')
+        response.subject.should == 'Task added'
+        response.body.should == "Task aa_bb cc_dd successfully added to list #{LIST_ID}."
       end
     end
 
