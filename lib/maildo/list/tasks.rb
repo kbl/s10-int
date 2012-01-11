@@ -8,6 +8,8 @@ module Maildo
 
       include Maildo::List::FileContent
 
+      ONLY_NUMBERS = /^\d+$/
+
       def initialize(list_id)
         @list_id = list_id
         @path = Tasks.path(list_id)
@@ -45,7 +47,6 @@ module Maildo
 
       private
 
-      ONLY_NUMBERS = /^\d+$/
       attr_reader :list_id, :path
 
     end
