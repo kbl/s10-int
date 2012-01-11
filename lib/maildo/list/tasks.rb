@@ -9,7 +9,7 @@ module Maildo::List
 
     def initialize(list_id)
       @list_id = list_id
-      @path = tasks_file_path(list_id)
+      @path = Tasks.path(list_id)
     end
 
     def add(task)
@@ -36,17 +36,16 @@ module Maildo::List
       content(path)
     end
 
-    private
-
-    ONLY_NUMBERS = /^\d+$/
-
-    attr_reader :list_id, :path
-
-    def tasks_file_path(list_id)
+    def self.path(list_id)
       File.join(
         Maildo::Config::TODO_LISTS_PATH,
         list_id)
     end
+
+    private
+
+    ONLY_NUMBERS = /^\d+$/
+    attr_reader :list_id, :path
 
   end
 end

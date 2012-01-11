@@ -7,7 +7,7 @@ module Maildo::List
 
     def initialize(list_id)
       @list_id = list_id
-      @path = subscribers_file_path(list_id)
+      @path = Subscribers.path(list_id)
     end
 
     def subscribe(subscriber)
@@ -30,19 +30,16 @@ module Maildo::List
       content(path)
     end
 
+    def self.path(list_id)
+      subscribers_file = list_id + SUBSCRIBERS_FILE_SUFFIX
+      File.join(
+        Maildo::Config::TODO_LISTS_PATH, 
+        subscribers_file)
+    end
+
     private
 
     attr_reader :list_id, :path
-
-    def subscribers_file_path(list_id)
-      File.join(
-        Maildo::Config::TODO_LISTS_PATH, 
-        subscribers_file(list_id))
-    end
-
-    def subscribers_file(list_id)
-      list_id + SUBSCRIBERS_FILE_SUFFIX
-    end
 
   end
 end
