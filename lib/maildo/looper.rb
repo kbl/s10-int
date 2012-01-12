@@ -21,5 +21,3 @@ module Maildo
 
   end
 end
-
-Maildo::Looper.start

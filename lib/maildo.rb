@@ -3,10 +3,11 @@ require 'pstore'
 require 'mail'
 require 'eventmachine'
 
-require_relative 'maildo/logger'
-require_relative 'maildo/config'
 require_relative 'maildo/mail_server'
 require_relative 'maildo/dispatcher'
+require_relative 'maildo/looper'
+require_relative 'maildo/logger'
+require_relative 'maildo/config'
 
 require_relative 'maildo/list/store'
 require_relative 'maildo/list/subscribers'

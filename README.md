@@ -39,6 +39,11 @@ Respond with list of tasks added to list identified by `list-id`. Listing tasks 
     
 Sender of this message will be unsubscribed from list identified by `list-id`, if sender wasn't previously subscribed this message causes error.
 
-## Installation
+## Configuration & Usage
 
-TODO
+TODO - configuration description 
+
+After successfull installation following command should do right thing (;
+
+    $ ./bin/maildo
+
