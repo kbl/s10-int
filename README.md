@@ -41,9 +41,13 @@ Sender of this message will be unsubscribed from list identified by `list-id`, i
 
 ## Configuration & Usage
 
-TODO - configuration description 
+Maildo uses gmail mailboxes. Three enviroment variables need to be set:
 
-After successfull installation following command should do right thing (;
+ * `MAILDO_PASS` - password to mailbox 
+ * `MAILDO_MAIL` - username eg `rmutodo@gmail.com`
+ * `MAILDO_STORE_PATH` - absolute path to existing folder in which files with todo lists will be kept
+
+After successfull configuration following command should do right thing (;
 
     $ ./bin/maildo
 

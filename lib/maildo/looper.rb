@@ -3,9 +3,11 @@ require 'maildo'
 module Maildo
   module Looper
 
-    CHECK_INTERVAL = 10
+    CHECK_INTERVAL = 2
 
-    def self.start(dispatcher = Dispatcher.new)
+    def self.start(dispatcher = Dispatcher.new, &block)
+      Maildo::Config.instance(&block)
+
       EM.run do
         start_timer(dispatcher)
       end

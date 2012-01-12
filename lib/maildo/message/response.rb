@@ -23,7 +23,7 @@ module Maildo
         m.to = to
         m.subject = subject
         m.body = body
-        m.from = Maildo::Config.instance.sender
+        m.from = ENV['MAILDO_MAIL']
 
         @mail = m
       end
