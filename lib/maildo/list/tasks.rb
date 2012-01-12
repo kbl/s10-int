@@ -1,8 +1,7 @@
 module Maildo
   module List
 
-    class IllegalTaskIdentifierError < RuntimeError
-    end
+    IllegalTaskIdentifierError = Class.new(RuntimeError)
 
     class Tasks
 
