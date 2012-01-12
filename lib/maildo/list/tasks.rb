@@ -6,18 +6,18 @@ module Maildo
 
     class Tasks
 
-      include Maildo::List::FileContent
-
       ONLY_NUMBERS = /^\d+$/
 
       def initialize(list_id)
         @list_id = list_id
         @path = Tasks.path(list_id)
+        @store = PStore.new(path)
       end
 
       def add(task)
-        File.open(path, 'a') do |f|
-          f.puts(task)
+        store.transaction do
+          store[:tasks] ||= []
+          store[:tasks] << task
         end
       end
 
@@ -31,12 +31,17 @@ module Maildo
         raise IllegalTaskIdentifierError if index_invalid
 
         task = t.delete_at(index)
-        replace_content(path, t)
+        store.transaction do
+          store[:tasks] = t
+        end
         task
       end
 
       def tasks
-        content(path)
+        content = store.transaction do
+          store[:tasks] || []
+        end
+        content
       end
 
       def self.path(list_id)
@@ -47,7 +52,7 @@ module Maildo
 
       private
 
-      attr_reader :list_id, :path
+      attr_reader :list_id, :path, :store
 
     end
   end

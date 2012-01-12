@@ -8,7 +8,6 @@ module Maildo
   require 'maildo/mail_server'
   require 'maildo/dispatcher'
 
-  require 'maildo/list/file_content'
   require 'maildo/list/subscribers'
   require 'maildo/list/tasks'
 
