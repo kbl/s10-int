@@ -1,29 +1,28 @@
 require 'maildo'
 
 module Maildo
-  class Looper
+  module Looper
 
-    def initialize(dispatcher = Dispatcher.new)
-      @dispatcher = dispatcher
-    end
-
-    def loop
-      while true
-        log.debug('tick')
-        @dispatcher.tick
-        log.debug('sleep')
-        sleep(Maildo::Config::PROBE_INTERVAL)
-        log.debug('wake up!')
+    def self.start(dispatcher = Dispatcher.new)
+      EM.run do
+        start_timer(dispatcher)
       end
     end
 
     private
 
-    def log
+    def self.start_timer(dispatcher)
+      timer = EventMachine::PeriodicTimer.new(Maildo::Config::PROBE_INTERVAL) do
+        log.debug('tick')
+        dispatcher.tick
+      end
+    end
+
+    def self.log
       @log ||= Logger.new(STDOUT)
     end
 
   end
 end
 
-Maildo::Looper.new.loop
+Maildo::Looper.start

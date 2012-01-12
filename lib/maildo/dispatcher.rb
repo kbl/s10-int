@@ -11,7 +11,7 @@ module Maildo
     end
 
     def tick
-      mails = mail_server.retrieve_and_delete_all
+      mails = @mail_server.retrieve_and_delete_all
       @logger.debug("mails: #{mails.length}")
       responses = mails.map do |mail|
         @logger.debug("get mail: #{mail}")

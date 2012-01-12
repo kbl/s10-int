@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'mail'
+gem 'eventmachine'
 
 group :test do
   gem 'rspec'

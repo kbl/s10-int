@@ -1,6 +1,7 @@
 require 'logger'
 require 'pstore'
 require 'mail'
+require 'eventmachine'
 
 require_relative 'maildo/config'
 require_relative 'maildo/mail_server'
