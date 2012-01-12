@@ -15,15 +15,14 @@ def email(f, s)
   { subject: s, from: f }
 end
 
-module Maildo::Config
-
-  TODO_LISTS_PATH = File.join(File.dirname(__FILE__), 'test-lists')
-
+Maildo::Config.instance do
+  @store_path = File.join(File.dirname(__FILE__), 'test-lists')
+  @logdev = nil
 end
 
 def empty_test_list_dir
-  Dir.new(Maildo::Config::TODO_LISTS_PATH).each do |f|
-    path = File.join(Maildo::Config::TODO_LISTS_PATH, f)
+  Dir.new(Maildo::Config.instance.store_path).each do |f|
+    path = File.join(Maildo::Config.instance.store_path, f)
 
     is_gitignore = f =~ /^\.gitignore$/
     is_directory = File.directory?(path)

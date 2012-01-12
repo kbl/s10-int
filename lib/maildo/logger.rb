@@ -8,7 +8,7 @@ module Maildo
     private
 
     def self.logger
-      @logger ||= ::Logger.new(STDOUT)
+      @logger ||= ::Logger.new(Maildo::Config.instance.logdev)
     end
 
   end

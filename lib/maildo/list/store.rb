@@ -31,7 +31,7 @@ module Maildo
 
       def self.path(list_id)
         File.join(
-          Maildo::Config::TODO_LISTS_PATH,
+          Maildo::Config.instance.store_path,
           list_id)
       end
 
