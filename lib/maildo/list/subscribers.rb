@@ -40,7 +40,7 @@ module Maildo
       end
 
       def delete_unnecessary_files
-        File.delete(Store.path(list_id))
+        store.delete!
       end
 
     end

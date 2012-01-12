@@ -25,6 +25,10 @@ module Maildo
         end
       end
 
+      def delete!
+        File.delete(path)
+      end
+
       def self.path(list_id)
         File.join(
           Maildo::Config::TODO_LISTS_PATH,
