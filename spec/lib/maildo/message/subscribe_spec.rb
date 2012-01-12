@@ -7,7 +7,7 @@ module Maildo::Message
 
     it 'should create subscribers file with proper name' do
       s = Subscribe.new('joe@smith.com', 'list_id')
-      path = Maildo::List::Subscribers.path('list_id')
+      path = Maildo::List::Store.path('list_id')
 
       File.exists?(path).should == false
       s.execute

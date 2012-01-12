@@ -6,14 +6,10 @@ module Maildo
 
       def initialize(list_id)
         @list_id = list_id
-        @path = Subscribers.path(list_id)
       end
 
       def subscribe(subscriber)
-        store.transaction do
-          store[:subscribers] ||= []
-          store[:subscribers] << subscriber
-        end
+        store.add(:subscribers, subscriber)
       end
 
       def unsubscribe(subscriber)
@@ -23,9 +19,7 @@ module Maildo
         if s.length == 0
           delete_unnecessary_files
         else
-          store.transaction do
-            store[:subscribers] = s
-          end
+          store.set(:subscribers, s)
         end
       end
 
@@ -34,32 +28,19 @@ module Maildo
       end
 
       def subscribers
-        content = store.transaction do
-          store[:subscribers] || []
-        end
-        content
-      end
-
-      def self.path(list_id)
-        subscribers_file = list_id + SUBSCRIBERS_FILE_SUFFIX
-        File.join(
-          Maildo::Config::TODO_LISTS_PATH, 
-          subscribers_file)
+        store.get(:subscribers)
       end
 
       private
 
-      attr_reader :list_id, :path
+      attr_reader :list_id
 
       def store
-        @store || @store = PStore.new(path)
+        @store || @store = Store.new(list_id)
       end
 
       def delete_unnecessary_files
-        File.delete(path)
-
-        tasks_path = Tasks.path(list_id)
-        File.delete(tasks_path) if File.exists?(tasks_path)
+        File.delete(Store.path(list_id))
       end
 
     end
