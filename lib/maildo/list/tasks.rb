@@ -39,7 +39,7 @@ module Maildo
       attr_reader :list_id
 
       def store
-        @store || @store = Store.new(list_id)
+        @store ||= Store.new(list_id)
       end
 
     end

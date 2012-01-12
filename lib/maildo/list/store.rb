@@ -40,7 +40,7 @@ module Maildo
       attr_reader :path
 
       def store
-        @store || @store = PStore.new(path)
+        @store ||= PStore.new(path)
       end
 
     end

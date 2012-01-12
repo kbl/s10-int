@@ -22,7 +22,7 @@ module Maildo
     attr_reader :dispatcher
     
     def log
-      @log || @log = Logger.new(STDOUT)
+      @log ||= Logger.new(STDOUT)
     end
 
   end

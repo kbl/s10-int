@@ -24,7 +24,7 @@ module Maildo
     attr_reader :parser, :mail_server
 
     def log
-      @log || @log = Logger.new(STDOUT)
+      @log ||= Logger.new(STDOUT)
     end
 
     def dispatch(message)

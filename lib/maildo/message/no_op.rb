@@ -15,7 +15,7 @@ module Maildo
       attr_reader :subject, :sender
 
       def response
-        @response || @response = Response.new(
+        @response ||= Response.new(
             sender, 
             'Illegal message', "Message [#{subject}] could not be processed successfully.")
       end
