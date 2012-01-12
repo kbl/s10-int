@@ -3,20 +3,20 @@ require 'spec_helper'
 module Maildo::Message
   describe List do
 
-    SENDER = 'xx@yy.com'
-    LIST_ID = 'bzium99'
+    let(:sender) { 'xx@yy.com' }
+    let(:list_id) { 'bzium99' }
 
     after(:each) { empty_test_list_dir }
 
     it 'should return access denied response' do
       response = list
       response.subject.should == 'Access denied'
-      response.body.should match /Please subscribe to \[#{LIST_ID}\]/
-      response.to.should == SENDER
+      response.body.should match /Please subscribe to \[#{list_id}\]/
+      response.to.should == sender
     end
 
     context 'subscribed' do
-      before(:each) { Subscribe.new(SENDER, LIST_ID).execute }
+      before(:each) { Subscribe.new(sender, list_id).execute }
 
       it 'should return valid response' do
         add_task('learn moonwalk')
@@ -24,8 +24,8 @@ module Maildo::Message
         add_task('do 101 pushups in 2 minutes')
 
         response = list
-        response.subject.should == "Todo list #{LIST_ID}"
-        response.to.should == SENDER
+        response.subject.should == "Todo list #{list_id}"
+        response.to.should == sender
         response.body.should == 
 <<-STR
 List contains following tasks:
@@ -39,11 +39,11 @@ STR
     end
 
     def add_task(task)
-      Add.new(SENDER, LIST_ID, task).execute
+      Add.new(sender, list_id, task).execute
     end
 
     def list
-      List.new(SENDER, LIST_ID).execute
+      List.new(sender, list_id).execute
     end
 
   end

@@ -3,29 +3,29 @@ require 'spec_helper'
 module Maildo::Message
   describe Done do
 
-    SENDER = 'joe@smith.com'
-    LIST_ID = 'id7'
+    let(:sender) { 'joe@smith.com' }
+    let(:list_id) { 'id7' }
 
     after(:each) { empty_test_list_dir }
 
     it 'should return access denied response' do
       r = done('task')
       r.subject.should == 'Access denied'
-      r.body.should match /Please subscribe to \[#{LIST_ID}\]/
-      r.to.should == SENDER
+      r.body.should match /Please subscribe to \[#{list_id}\]/
+      r.to.should == sender
     end
 
     context 'subscribed' do
-      before(:each) { Subscribe.new(SENDER, LIST_ID).execute }
+      before(:each) { Subscribe.new(sender, list_id).execute }
 
       it 'should done task by 1 based index' do
         add_task('task')
         add_task('to be done')
         add_task('really hard task')
 
-        tasks(LIST_ID).should == ['task', 'to be done', 'really hard task']
+        tasks(list_id).should == ['task', 'to be done', 'really hard task']
         done('2')
-        tasks(LIST_ID).should == ['task', 'really hard task']
+        tasks(list_id).should == ['task', 'really hard task']
       end
 
       it 'should return valid response object' do
@@ -33,7 +33,7 @@ module Maildo::Message
         r = done('1')
         r.subject.should == 'Task done'
         r.body.should == 'Task with number 1 (read whole internet) was done.'
-        r.to.should == SENDER
+        r.to.should == sender
       end
 
       context 'illegal task identifier' do
@@ -61,11 +61,11 @@ module Maildo::Message
     end
 
     def add_task(task)
-      Add.new(SENDER, LIST_ID, task).execute
+      Add.new(sender, list_id, task).execute
     end
 
     def done(task_id)
-      Done.new(SENDER, LIST_ID, task_id).execute
+      Done.new(sender, list_id, task_id).execute
     end
 
   end
