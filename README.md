@@ -1,38 +1,17 @@
 # Integration Exercise: Mail Servers
+## TODO lists
 
-_written by: Gregory Brown_
+Basic todo lists which could be managed with email. Protocol is using only sender email and subject of the message, body or atachements are ignored.
 
-While most of our attention these days gets directed towards web applications,
-there is something to be said for the universal medium of email. In this
-exercise, you'll build a simple mail server that provides an interesting service
-for its users via email.
+## API
+Types of messages described below show all valid email subjects, any other won't be properly interpreted by Maildo. $tokens$ shows parts of subject that could be changed. All errors are reported via emails.
 
-## Examples
+- SUBSCRIBE [$list-id$] - sender of this message will be subscribed to list of passed id (list-id), list-id could only contain alphanumeric caracters and underscore (\w), multiple subscribtions messaegs for already subscribed list causes error,
+- ADD [$list-id$] $task$ - adds $task$ to list specified by $list-id$, adding task to list for which subscribption wasn't earlier requested causes error,
+- DONE [$list-id$] $task-number$ - rmoves task from list, $task-number$ is 1-based order number of task, removing task from listh for which subscribtion wasn't earlier requested causes error,
+- LIST [$list-id$] - lists all tasks on particular list
+- UNSUBSCRIBE [$list-id$] - sender of this message will be unsubscribed from list, if sender wasn't previously subscribed this message causes error.
 
-- An archival system for sharing documents. Email an attachment to the service
-and it will be stored. Other users can query the system by email to see what
-documents are available, and request files to be sent to them from the archives
-via email.
+## Installation
 
-- An email based [Multi-User Dimension](http://en.wikipedia.org/wiki/MUD) which
-  allows players to navigate various themed rooms. When in a given room, the
-  user will be able to easily email other people who are in that room similar
-  to how a mailing list works. 
-
-## Exercise Summary
-
-- Propose an interesting mail server idea application to implement
-  - No two students should work on the same idea
-  - Your idea should incorporate multi-user interactions in some way
-  - If you get stuck, don't be afraid to ask for help.
-- Implement your idea. You can use any mail software you'd like, but it's
-recommended to check out the mail gem, as it provides most of the
-functionality you'll need.
-
-## Submission Guidelines
-
-If you plan to work on this exercise, you should fork this repository 
-and push code early and often during the course. The course 
-guidelines PDF explains the submission process in detail, but please 
-contact an instructor if you have any questions.
-
+TODO

@@ -4,7 +4,6 @@ module Maildo
   module Config
 
     TODO_LISTS_PATH = '/tmp/todos'
-    PROBE_INTERVAL = 10
     SENDER = 'rmutodo@gmail.com'
 
     Mail.defaults do
