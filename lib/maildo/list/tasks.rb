@@ -11,7 +11,6 @@ module Maildo
       def initialize(list_id)
         @list_id = list_id
         @path = Tasks.path(list_id)
-        @store = PStore.new(path)
       end
 
       def add(task)
@@ -52,7 +51,11 @@ module Maildo
 
       private
 
-      attr_reader :list_id, :path, :store
+      attr_reader :list_id, :path
+
+      def store
+        @store || @store = PStore.new(path)
+      end
 
     end
   end

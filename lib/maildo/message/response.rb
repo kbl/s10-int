@@ -9,17 +9,23 @@ module Maildo
       end
 
       def mail
+        @mail || prepare_mail
+      end
+
+      def to_s
+        "to: #{to} subject: #{subject} body: #{body}"
+      end
+
+      private
+
+      def prepare_mail
         m = Mail.new
         m.to = to
         m.subject = subject
         m.body = body
         m.from = Maildo::Config::SENDER
 
-        m
-      end
-
-      def to_s
-        "to: #{to} subject: #{subject} body: #{body}"
+        @mail = m
       end
 
     end

@@ -5,7 +5,6 @@ module Maildo
 
     def initialize(dispatcher = Dispatcher.new)
       @dispatcher = dispatcher
-      @log = Logger.new(STDOUT)
     end
 
     def loop
@@ -20,7 +19,11 @@ module Maildo
 
     private
 
-    attr_reader :dispatcher, :log
+    attr_reader :dispatcher
+    
+    def log
+      @log || @log = Logger.new(STDOUT)
+    end
 
   end
 end

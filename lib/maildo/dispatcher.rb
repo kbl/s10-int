@@ -4,7 +4,6 @@ module Maildo
     def initialize(mail_server = MailServer.new, parser = Message::Parser.new)
       @parser = parser
       @mail_server = mail_server
-      @log = Logger.new(STDOUT)
     end
 
     def tick
@@ -22,7 +21,11 @@ module Maildo
 
     private 
 
-    attr_reader :parser, :mail_server, :log
+    attr_reader :parser, :mail_server
+
+    def log
+      @log || @log = Logger.new(STDOUT)
+    end
 
     def dispatch(message)
       parser.parse(message)

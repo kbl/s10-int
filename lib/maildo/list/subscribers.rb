@@ -6,9 +6,7 @@ module Maildo
 
       def initialize(list_id)
         @list_id = list_id
-
         @path = Subscribers.path(list_id)
-        @store = PStore.new(path)
       end
 
       def subscribe(subscriber)
@@ -51,7 +49,11 @@ module Maildo
 
       private
 
-      attr_reader :list_id, :path, :store
+      attr_reader :list_id, :path
+
+      def store
+        @store || @store = PStore.new(path)
+      end
 
       def delete_unnecessary_files
         File.delete(path)
