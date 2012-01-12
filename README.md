@@ -1,10 +1,10 @@
 # Integration Exercise: Mail Servers
 ## TODO lists
 
-Basic todo lists which could be managed with email. Protocol is using only sender email and subject of the message, body or atachements are ignored.
+Basic todo lists which could be managed with email messages. Only author (email address) and subject of the message are important, body or atachements are ignored.
 
 ## API
-Types of messages described below show all valid email subjects, any other won't be properly interpreted by Maildo. $tokens$ shows parts of subject that could be changed. All errors are reported via emails.
+Types of messages described below show all valid email subjects, any other won't be properly interpreted by Maildo. $tokens$ shows parts of subject that could be changed. All errors are reported via emails. Generaly subject could be described as: ACTION [list-id] (additional data)
 
 - SUBSCRIBE [$list-id$] - sender of this message will be subscribed to list of passed id (list-id), list-id could only contain alphanumeric caracters and underscore (\w), multiple subscribtions messaegs for already subscribed list causes error,
 - ADD [$list-id$] $task$ - adds $task$ to list specified by $list-id$, adding task to list for which subscribption wasn't earlier requested causes error,
