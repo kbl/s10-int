@@ -3,14 +3,41 @@
 
 Basic todo lists which could be managed with email messages. Only author (email address) and subject of the message are important, body or atachements are ignored.
 
-## API
-Types of messages described below show all valid email subjects, any other won't be properly interpreted by Maildo. $tokens$ shows parts of subject that could be changed. All errors are reported via emails. Generaly subject could be described as: ACTION [list-id] (additional data)
+## Legal messages
+Types of messages described below show all valid email subjects, any other won't be properly interpreted by Maildo. `tokens` shows parts of subject that could be changed. All errors are reported back via emails. 
 
-- SUBSCRIBE [$list-id$] - sender of this message will be subscribed to list of passed id (list-id), list-id could only contain alphanumeric caracters and underscore (\w), multiple subscribtions messaegs for already subscribed list causes error,
-- ADD [$list-id$] $task$ - adds $task$ to list specified by $list-id$, adding task to list for which subscribption wasn't earlier requested causes error,
-- DONE [$list-id$] $task-number$ - rmoves task from list, $task-number$ is 1-based order number of task, removing task from listh for which subscribtion wasn't earlier requested causes error,
-- LIST [$list-id$] - lists all tasks on particular list
-- UNSUBSCRIBE [$list-id$] - sender of this message will be unsubscribed from list, if sender wasn't previously subscribed this message causes error.
+Generaly subject could be described as: `ACTION [list-id] (additional data)` (case sensitive).
+
+### Subscribe to list
+
+    SUBSCRIBE [list-id] 
+
+Sender of this message will be subscribed to list identified by `list-id`, `list-id` could only contain alphanumeric characters and underscore (`\w`), multiple subscribtions messaegs for already subscribed list causes error.
+
+### Add task to list
+
+    ADD [list-id] task 
+    
+Adds `task` to list identified by `list-id`, adding task to list for which subscribption wasn't earlier requested causes error.
+
+### Task done
+
+    DONE [list-id] task-number
+
+Removes task from list, `task-number` is 1-based order number of task, removing task from listh for which subscribtion wasn't earlier requested causes error. Illegal `task-number` causes error.
+
+### List of tasks
+
+    LIST [list-id] 
+    
+Respond with list of tasks added to list identified by `list-id`. Listing tasks from list to which sender wasn't subscribed causes error.
+
+
+### Unsubscribing from list
+
+    UNSUBSCRIBE [list-id] 
+    
+Sender of this message will be unsubscribed from list identified by `list-id`, if sender wasn't previously subscribed this message causes error.
 
 ## Installation
 
