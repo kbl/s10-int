@@ -6,19 +6,14 @@ module Maildo
 
     class Tasks
 
-      include Maildo::List::FileContent
-
       ONLY_NUMBERS = /^\d+$/
 
       def initialize(list_id)
         @list_id = list_id
-        @path = Tasks.path(list_id)
       end
 
       def add(task)
-        File.open(path, 'a') do |f|
-          f.puts(task)
-        end
+        store.add(:tasks, task)
       end
 
       def done(one_based_task_index)
@@ -31,23 +26,22 @@ module Maildo
         raise IllegalTaskIdentifierError if index_invalid
 
         task = t.delete_at(index)
-        replace_content(path, t)
+        store[:tasks] = t
+
         task
       end
 
       def tasks
-        content(path)
-      end
-
-      def self.path(list_id)
-        File.join(
-          Maildo::Config::TODO_LISTS_PATH,
-          list_id)
+        store[:tasks]
       end
 
       private
 
-      attr_reader :list_id, :path
+      attr_reader :list_id
+
+      def store
+        @store || @store = Store.new(list_id)
+      end
 
     end
   end
