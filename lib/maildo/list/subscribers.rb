@@ -2,8 +2,6 @@ module Maildo
   module List
     class Subscribers
 
-      SUBSCRIBERS_FILE_SUFFIX = '-subscribers'
-
       def initialize(list_id)
         @list_id = list_id
       end
