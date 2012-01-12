@@ -1,28 +1,24 @@
-module Maildo
+require 'logger'
+require 'pstore'
+require 'mail'
 
-  require 'logger'
-  require 'pstore'
-  require 'mail'
+require_relative 'maildo/config'
+require_relative 'maildo/mail_server'
+require_relative 'maildo/dispatcher'
 
-  require 'maildo/config'
-  require 'maildo/mail_server'
-  require 'maildo/dispatcher'
+require_relative 'maildo/list/store'
+require_relative 'maildo/list/subscribers'
+require_relative 'maildo/list/tasks'
 
-  require 'maildo/list/store'
-  require 'maildo/list/subscribers'
-  require 'maildo/list/tasks'
+require_relative 'maildo/message/response'
+require_relative 'maildo/message/no_op'
+require_relative 'maildo/message/sender_aware_message'
+require_relative 'maildo/message/subscribers_aware_message'
+require_relative 'maildo/message/subscribe'
+require_relative 'maildo/message/unsubscribe'
+require_relative 'maildo/message/tasks_aware_message'
+require_relative 'maildo/message/add'
+require_relative 'maildo/message/done'
+require_relative 'maildo/message/list'
 
-  require 'maildo/message/response'
-  require 'maildo/message/no_op'
-  require 'maildo/message/sender_aware_message'
-  require 'maildo/message/subscribers_aware_message'
-  require 'maildo/message/subscribe'
-  require 'maildo/message/unsubscribe'
-  require 'maildo/message/tasks_aware_message'
-  require 'maildo/message/add'
-  require 'maildo/message/done'
-  require 'maildo/message/list'
-
-  require 'maildo/message/parser'
-
-end
+require_relative 'maildo/message/parser'
