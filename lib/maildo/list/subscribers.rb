@@ -33,10 +33,8 @@ module Maildo
 
       private
 
-      attr_reader :list_id
-
       def store
-        @store ||= Store.new(list_id)
+        @store ||= Store.new(@list_id)
       end
 
       def delete_unnecessary_files

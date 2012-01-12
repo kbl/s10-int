@@ -26,7 +26,7 @@ module Maildo
       end
 
       def delete!
-        File.delete(path)
+        File.delete(@path)
       end
 
       def self.path(list_id)
@@ -37,10 +37,8 @@ module Maildo
 
       private
 
-      attr_reader :path
-
       def store
-        @store ||= PStore.new(path)
+        @store ||= PStore.new(@path)
       end
 
     end

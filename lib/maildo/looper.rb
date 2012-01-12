@@ -10,7 +10,7 @@ module Maildo
     def loop
       while true
         log.debug('tick')
-        dispatcher.tick
+        @dispatcher.tick
         log.debug('sleep')
         sleep(Maildo::Config::PROBE_INTERVAL)
         log.debug('wake up!')
@@ -19,8 +19,6 @@ module Maildo
 
     private
 
-    attr_reader :dispatcher
-    
     def log
       @log ||= Logger.new(STDOUT)
     end
