@@ -1,7 +1,9 @@
 module Maildo
 
   require 'logger'
+  require 'pstore'
   require 'mail'
+
   require 'maildo/config'
   require 'maildo/mail_server'
   require 'maildo/dispatcher'

@@ -2,18 +2,19 @@ module Maildo
   module List
     class Subscribers
 
-      include Maildo::List::FileContent
-
       SUBSCRIBERS_FILE_SUFFIX = '-subscribers'
 
       def initialize(list_id)
         @list_id = list_id
+
         @path = Subscribers.path(list_id)
+        @store = PStore.new(path)
       end
 
       def subscribe(subscriber)
-        File.open(path, 'a') do |f|
-          f.puts(subscriber)
+        store.transaction do
+          store[:subscribers] ||= []
+          store[:subscribers] << subscriber
         end
       end
 
@@ -24,7 +25,9 @@ module Maildo
         if s.length == 0
           delete_unnecessary_files
         else
-          replace_content(path, s)
+          store.transaction do
+            store[:subscribers] = s
+          end
         end
       end
 
@@ -33,7 +36,10 @@ module Maildo
       end
 
       def subscribers
-        content(path)
+        content = store.transaction do
+          store[:subscribers] || []
+        end
+        content
       end
 
       def self.path(list_id)
@@ -45,7 +51,7 @@ module Maildo
 
       private
 
-      attr_reader :list_id, :path
+      attr_reader :list_id, :path, :store
 
       def delete_unnecessary_files
         File.delete(path)
