@@ -26,13 +26,13 @@ module Maildo
         raise IllegalTaskIdentifierError if index_invalid
 
         task = t.delete_at(index)
-        store.set(:tasks, t)
+        store[:tasks] = t
 
         task
       end
 
       def tasks
-        store.get(:tasks)
+        store[:tasks]
       end
 
       private

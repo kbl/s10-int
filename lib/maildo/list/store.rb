@@ -13,13 +13,13 @@ module Maildo
         end
       end
 
-      def set(key, value)
+      def []=(key, value)
         store.transaction do
           store[key] = value
         end
       end
 
-      def get(key)
+      def [](key)
         store.transaction do
           store[key] || []
         end

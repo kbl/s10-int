@@ -19,7 +19,7 @@ module Maildo
         if s.length == 0
           delete_unnecessary_files
         else
-          store.set(:subscribers, s)
+          store[:subscribers] = s
         end
       end
 
@@ -28,7 +28,7 @@ module Maildo
       end
 
       def subscribers
-        store.get(:subscribers)
+        store[:subscribers]
       end
 
       private
