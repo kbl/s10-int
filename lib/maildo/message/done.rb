@@ -14,7 +14,7 @@ module Maildo
         return response if response
 
         begin
-          task = tasks.done(task_id)
+          task = @tasks.done(task_id)
         rescue Maildo::List::IllegalTaskIdentifierError
           return response('Illegal action', "Task identifier [#{task_id}] is illegal.")
         end

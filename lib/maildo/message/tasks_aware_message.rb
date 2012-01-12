@@ -8,14 +8,10 @@ module Maildo
       end
 
       def execute
-        unless subscribers.subscribed?(sender)
+        unless @subscribers.subscribed?(sender)
           response('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}].")
         end
       end
-
-      private
-
-      attr_reader :tasks
 
     end
   end

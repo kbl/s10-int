@@ -10,7 +10,7 @@ module Maildo
         response = super
         return response if response
 
-        t = tasks.tasks
+        t = @tasks.tasks
         response("Todo list #{list_id}", response_body(t))
       end
 

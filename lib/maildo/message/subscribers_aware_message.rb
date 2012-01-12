@@ -10,10 +10,6 @@ module Maildo
         @subscribers = Maildo::List::Subscribers.new(list_id)
       end
 
-      private
-
-      attr_reader :subscribers
-
     end
   end
 end

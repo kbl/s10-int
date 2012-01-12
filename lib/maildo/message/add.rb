@@ -15,7 +15,7 @@ module Maildo
         response = super
         return response if response
 
-        tasks.add(body)
+        @tasks.add(body)
         response('Task added', "Task #{body} successfully added to list #{list_id}.")
       end
 
