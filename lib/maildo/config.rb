@@ -3,7 +3,7 @@ require 'maildo'
 module Maildo
   class Config
 
-    attr_reader :sender, :store_path, :logdev
+    attr_reader :store_path, :logdev
 
     def self.instance(&block)
       @instance ||= Config.new(&block)
