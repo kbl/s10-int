@@ -6,7 +6,7 @@ module Maildo
     attr_reader :sender, :store_path, :logdev
 
     def self.instance(&block)
-      @@instance ||= Config.new(&block)
+      @instance ||= Config.new(&block)
     end
 
     def initialize(&block)
