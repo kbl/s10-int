@@ -7,9 +7,7 @@ module Maildo
 
       ONLY_NUMBERS = /^\d+$/
 
-      def initialize(list_id)
-        @list_id = list_id
-      end
+      include PersistencyAware
 
       def add(task)
         store.add(:tasks, task)
@@ -32,12 +30,6 @@ module Maildo
 
       def tasks
         store[:tasks]
-      end
-
-      private
-
-      def store
-        @store ||= Store.new(@list_id)
       end
 
     end

@@ -1,13 +1,12 @@
 module Maildo
   class Dispatcher
 
-    def initialize(mail_server = MailServer.new, parser = Message::Parser.new)
-      @parser = parser
-      @mail_server = mail_server
+    def initialize(parser = Message::Parser.new, mail_server = MailServer.new)
+      @parser, @mail_server = parser, mail_server
     end
 
     def tick
-      Logger.debug('tick')
+      Maildo.logger.debug('tick')
 
       mails = @mail_server.retrieve_and_delete_all
       responses = mails.map do |mail|
@@ -25,7 +24,7 @@ module Maildo
     end
 
     def send_email(response)
-      Logger.debug("sending response: #{response}")
+      Maildo.logger.debug("sending response: #{response}")
       response.mail.deliver!
     end
 

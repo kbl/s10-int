@@ -2,8 +2,8 @@ module Maildo
   module List
     class Store
 
-      def initialize(list_id)
-        @path = Store.path(list_id)
+      def initialize(store_path, list_id)
+        @path = File.join(store_path, list_id)
       end
 
       def add(key, value)
@@ -27,12 +27,6 @@ module Maildo
 
       def delete!
         File.delete(@path)
-      end
-
-      def self.path(list_id)
-        File.join(
-          Maildo::Config.instance.store_path,
-          list_id)
       end
 
       private

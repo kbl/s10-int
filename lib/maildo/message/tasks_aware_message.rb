@@ -2,9 +2,9 @@ module Maildo
   module Message
     module TasksAwareMessage
       
-      def initialize(sender, list_id)
+      def initialize(config, sender, list_id)
         super
-        @tasks = Maildo::List::Tasks.new(list_id)
+        @tasks = Maildo::List::Tasks.new(config.store_path, list_id)
       end
 
       def execute

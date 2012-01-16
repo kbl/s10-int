@@ -12,6 +12,10 @@ module Maildo
         /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
       }
 
+      def initialize(config = Config.new)
+        @config = config
+      end
+
       def parse(message)
         Maildo.logger.debug("parsing email: #{message}")
 
@@ -21,11 +25,11 @@ module Maildo
         VALID_SUBJECTS.each do |re, klass|
           match = re.match(subject)
           if match
-            sender_with_additional_params = [from] + match.captures()
-            return klass.new(*sender_with_additional_params)
+            config_sender_with_additional_params = [@config, from] + match.captures()
+            return klass.new(*config_sender_with_additional_params)
           end
         end
-        return Maildo::Message::NoOp.new(from, subject)
+        return Maildo::Message::NoOp.new(@config, from, subject)
       end
 
     end
