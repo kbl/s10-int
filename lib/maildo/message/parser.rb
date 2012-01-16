@@ -13,7 +13,7 @@ module Maildo
       }
 
       def parse(message)
-        Logger.debug("parsing email: #{message}")
+        Maildo.logger.debug("parsing email: #{message}")
 
         subject = message[:subject]
         from = message[:from]

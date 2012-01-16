@@ -1,7 +1,13 @@
 require 'maildo'
 
 module Maildo
+
+  class << self
+    attr_accessor :logger
+  end
+
   class Config
+
 
     attr_reader :store_path, :logdev
 
@@ -12,6 +18,9 @@ module Maildo
     def initialize(&block)
       set_default_values
       instance_eval &block if block_given?
+
+      @logger = ::Logger.new(@logdev)
+      Maildo.logger = @logger
     end
 
     private
