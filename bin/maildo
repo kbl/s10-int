@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-bin_dir = File.dirname(File.expand_path($0))
-$: << File.join(bin_dir, '..', 'lib')
-
-require 'maildo'
+require_relative '../lib/maildo'
 
 Maildo::Looper.start

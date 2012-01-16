@@ -1,5 +1,3 @@
-require 'maildo'
-
 module Maildo
   module Message
     class Subscribe
