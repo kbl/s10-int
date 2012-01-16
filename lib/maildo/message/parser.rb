@@ -12,7 +12,7 @@ module Maildo
         /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
       }
 
-      def initialize(config)
+      def initialize(config = Config.new)
         @config = config
       end
 

@@ -5,12 +5,7 @@ module Maildo
 
     CHECK_INTERVAL = 20
 
-    def self.start(dispatcher = Dispatcher.new, &config_block)
-      if block_given?
-        config = Maildo::Config.new(&config_block)
-        dispathcer.config = config
-      end
-
+    def self.start(dispatcher = Dispatcher.new)
       EM.run do
         start_timer(dispatcher)
       end
