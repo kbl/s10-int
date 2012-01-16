@@ -1,6 +1,10 @@
 module Maildo
   module Message
-    class List < TasksAwareMessage
+    class List
+
+      include SenderAwareMessage
+      include SubscribersAwareMessage
+      include TasksAwareMessage
       
       def initialize(sender, list_id)
         super(sender, list_id)

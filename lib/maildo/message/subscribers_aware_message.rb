@@ -1,6 +1,6 @@
 module Maildo
   module Message
-    class SubscribersAwareMessage < SenderAwareMessage
+    module SubscribersAwareMessage
 
       attr_reader :list_id
       

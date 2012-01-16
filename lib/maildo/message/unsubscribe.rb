@@ -1,6 +1,9 @@
 module Maildo
   module Message
-    class Unsubscribe < SubscribersAwareMessage
+    class Unsubscribe
+
+      include SenderAwareMessage
+      include SubscribersAwareMessage
 
       def initialize(sender, list_id)
         super(sender, list_id)

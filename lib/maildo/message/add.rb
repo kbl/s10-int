@@ -2,7 +2,11 @@ require 'maildo'
 
 module Maildo
   module Message
-    class Add < TasksAwareMessage
+    class Add
+
+      include SenderAwareMessage
+      include SubscribersAwareMessage
+      include TasksAwareMessage
       
       attr_reader :body
 

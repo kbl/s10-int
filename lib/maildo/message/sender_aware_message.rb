@@ -1,10 +1,11 @@
 module Maildo
   module Message
-    class SenderAwareMessage
+    module SenderAwareMessage
 
       attr_reader :sender
 
       def initialize(sender)
+        super
         @sender = sender
       end
 

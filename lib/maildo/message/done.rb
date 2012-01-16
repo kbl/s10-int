@@ -1,6 +1,10 @@
 module Maildo
   module Message
-    class Done < TasksAwareMessage
+    class Done
+
+      include SenderAwareMessage
+      include SubscribersAwareMessage
+      include TasksAwareMessage
       
       attr_reader :task_id
 

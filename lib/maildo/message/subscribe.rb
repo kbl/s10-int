@@ -2,7 +2,10 @@ require 'maildo'
 
 module Maildo
   module Message
-    class Subscribe < SubscribersAwareMessage
+    class Subscribe
+
+      include SenderAwareMessage
+      include SubscribersAwareMessage
 
       def initialize(sender, list_id)
         super(sender, list_id)

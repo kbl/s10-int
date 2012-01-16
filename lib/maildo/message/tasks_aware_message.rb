@@ -1,9 +1,9 @@
 module Maildo
   module Message
-    class TasksAwareMessage < SubscribersAwareMessage
+    module TasksAwareMessage
       
       def initialize(sender, list_id)
-        super(sender, list_id)
+        super
         @tasks = Maildo::List::Tasks.new(list_id)
       end
 
