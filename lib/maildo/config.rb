@@ -8,7 +8,6 @@ module Maildo
 
   class Config
 
-
     attr_reader :store_path, :logdev
 
     def self.instance(&block)

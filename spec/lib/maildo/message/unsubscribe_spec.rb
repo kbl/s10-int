@@ -44,30 +44,30 @@ module Maildo::Message
 
     context 'file deletion' do
 
-      let(:store_path) { Maildo::List::Store.path(list_id) }
+      let(:path) { store_path(list_id) }
 
       it 'should remove todo with subscribers files after last subscribent request unsubscription' do
         Subscribe.new(sender, list_id).execute
         Add.new(sender, list_id, 'task').execute
 
-        File.exists?(store_path).should == true
+        File.exists?(path).should == true
         subscribers(list_id).length.should == 1
 
         unsubscribe
 
-        File.exists?(store_path).should == false
+        File.exists?(path).should == false
       end
 
       it 'shouldnt remove files if subscribers left' do
         Subscribe.new(sender, list_id).execute
         Subscribe.new('xx@yy.pl', list_id).execute
 
-        File.exists?(store_path).should == true
+        File.exists?(path).should == true
         subscribers(list_id).length.should == 2
 
         unsubscribe
 
-        File.exists?(store_path).should == true
+        File.exists?(path).should == true
         subscribers(list_id).length.should == 1
       end
     end

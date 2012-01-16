@@ -15,7 +15,7 @@ def email(f, s)
   { subject: s, from: f }
 end
 
-Maildo::Config.instance do
+config = Maildo::Config.instance do
   @store_path = File.join(File.dirname(__FILE__), 'test-lists')
   @logdev = nil
 end
@@ -31,6 +31,10 @@ def empty_test_list_dir
       File.delete(path)
     end
   end
+end
+
+def store_path(list_id)
+  Maildo::List::Store.path(list_id)
 end
 
 def subscribers(list_id)
