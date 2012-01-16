@@ -9,6 +9,7 @@ require_relative 'maildo/looper'
 require_relative 'maildo/config'
 
 require_relative 'maildo/list/store'
+require_relative 'maildo/list/persistency_aware'
 require_relative 'maildo/list/subscribers'
 require_relative 'maildo/list/tasks'
 

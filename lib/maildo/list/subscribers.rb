@@ -2,9 +2,7 @@ module Maildo
   module List
     class Subscribers
 
-      def initialize(list_id)
-        @list_id = list_id
-      end
+      include PersistencyAware
 
       def subscribe(subscriber)
         store.add(:subscribers, subscriber)
@@ -30,10 +28,6 @@ module Maildo
       end
 
       private
-
-      def store
-        @store ||= Store.new(@list_id)
-      end
 
       def delete_unnecessary_files
         store.delete!

@@ -1,9 +1,14 @@
 module Maildo
   class Dispatcher
 
-    def initialize(mail_server = MailServer.new, parser = Message::Parser.new)
+    attr_writer :config
+
+    def initialize(mail_server = MailServer.new, 
+                   parser = Message::Parser.new, 
+                   config = Config.new)
       @parser = parser
       @mail_server = mail_server
+      @config = config
     end
 
     def tick
