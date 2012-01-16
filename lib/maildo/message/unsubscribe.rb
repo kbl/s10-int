@@ -5,8 +5,8 @@ module Maildo
       include SenderAwareMessage
       include SubscribersAwareMessage
 
-      def initialize(sender, list_id)
-        super(sender, list_id)
+      def initialize(config, sender, list_id)
+        super
       end
 
       def execute

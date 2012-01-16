@@ -16,7 +16,7 @@ module Maildo::Message
     end
 
     context 'subscribed' do
-      before(:each) { Subscribe.new(sender, list_id).execute }
+      before(:each) { Subscribe.new(config, sender, list_id).execute }
 
       it 'should add tasks to list' do
         add_task('task')
@@ -34,7 +34,7 @@ module Maildo::Message
     end
 
     def add_task(task)
-      Add.new(sender, list_id, task).execute
+      Add.new(config, sender, list_id, task).execute
     end
 
   end

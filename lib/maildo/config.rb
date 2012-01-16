@@ -10,15 +10,11 @@ module Maildo
 
     attr_reader :store_path, :logdev
 
-    def self.instance(&block)
-      @instance ||= Config.new(&block)
-    end
-
     def initialize(&block)
       set_default_values
       instance_eval &block if block_given?
 
-      @logger = ::Logger.new(@logdev)
+      @logger = Logger.new(@logdev)
       Maildo.logger = @logger
     end
 

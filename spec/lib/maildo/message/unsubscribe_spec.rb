@@ -16,7 +16,7 @@ module Maildo::Message
     end
     
     it 'should return succesfull unsubscription response' do
-      Subscribe.new(sender, list_id).execute
+      Subscribe.new(config, sender, list_id).execute
       r = unsubscribe
       r.subject.should == 'Unsubscribed successfully'
       r.body.should == "You are now unsubscribed from list [#{list_id}]."
@@ -24,8 +24,8 @@ module Maildo::Message
     end
 
     it 'should properly unsubscribe user' do
-      Subscribe.new(sender, list_id).execute
-      Subscribe.new('john@lenon.com', list_id).execute
+      Subscribe.new(config, sender, list_id).execute
+      Subscribe.new(config, 'john@lenon.com', list_id).execute
       
       unsubscribe
 
@@ -33,8 +33,8 @@ module Maildo::Message
     end
 
     it 'should left other lists intact while unsubscribing' do
-      Subscribe.new(sender, list_id).execute
-      Subscribe.new('john@lenon.com', 'xyz_list').execute
+      Subscribe.new(config, sender, list_id).execute
+      Subscribe.new(config, 'john@lenon.com', 'xyz_list').execute
       
       unsubscribe
 
@@ -47,8 +47,8 @@ module Maildo::Message
       let(:path) { store_path(list_id) }
 
       it 'should remove todo with subscribers files after last subscribent request unsubscription' do
-        Subscribe.new(sender, list_id).execute
-        Add.new(sender, list_id, 'task').execute
+        Subscribe.new(config, sender, list_id).execute
+        Add.new(config, sender, list_id, 'task').execute
 
         File.exists?(path).should == true
         subscribers(list_id).length.should == 1
@@ -59,8 +59,8 @@ module Maildo::Message
       end
 
       it 'shouldnt remove files if subscribers left' do
-        Subscribe.new(sender, list_id).execute
-        Subscribe.new('xx@yy.pl', list_id).execute
+        Subscribe.new(config, sender, list_id).execute
+        Subscribe.new(config, 'xx@yy.pl', list_id).execute
 
         File.exists?(path).should == true
         subscribers(list_id).length.should == 2
@@ -73,7 +73,7 @@ module Maildo::Message
     end
 
     def unsubscribe
-      Unsubscribe.new(sender, list_id).execute
+      Unsubscribe.new(config, sender, list_id).execute
     end
 
   end
