@@ -3,7 +3,7 @@ require 'spec_helper'
 module Maildo::Message
   describe Parser do
 
-    subject { Parser.new(config) }
+    subject { Parser.new(CONFIG) }
 
     context 'subscribe' do
       it 'should properly parse subject' do

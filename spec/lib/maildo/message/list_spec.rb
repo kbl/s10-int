@@ -16,7 +16,7 @@ module Maildo::Message
     end
 
     context 'subscribed' do
-      before(:each) { Subscribe.new(config, sender, list_id).execute }
+      before(:each) { Subscribe.new(CONFIG, sender, list_id).execute }
 
       it 'should return valid response' do
         add_task('learn moonwalk')
@@ -39,11 +39,11 @@ STR
     end
 
     def add_task(task)
-      Add.new(config, sender, list_id, task).execute
+      Add.new(CONFIG, sender, list_id, task).execute
     end
 
     def list
-      List.new(config, sender, list_id).execute
+      List.new(CONFIG, sender, list_id).execute
     end
 
   end

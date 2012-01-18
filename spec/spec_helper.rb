@@ -15,18 +15,14 @@ def email(f, s)
   { subject: s, from: f }
 end
 
-@@config = Maildo::Config.new do
+CONFIG = Maildo::Config.new do
   @store_path = File.join(File.dirname(__FILE__), 'test-lists')
   @logger = Logger.new(nil)
 end
 
-def config
-  @@config
-end
-
 def empty_test_list_dir
-  Dir.new(config.store_path).each do |f|
-    path = File.join(config.store_path, f)
+  Dir.new(CONFIG.store_path).each do |f|
+    path = File.join(CONFIG.store_path, f)
 
     is_gitignore = f =~ /^\.gitignore$/
     is_directory = File.directory?(path)
@@ -38,13 +34,13 @@ def empty_test_list_dir
 end
 
 def store_path(list_id)
-  File.join(config.store_path, list_id)
+  File.join(CONFIG.store_path, list_id)
 end
 
 def subscribers(list_id)
-  Maildo::List::Subscribers.new(config.store_path, list_id).subscribers
+  Maildo::List::Subscribers.new(CONFIG.store_path, list_id).subscribers
 end
 
 def tasks(list_id)
-  Maildo::List::Tasks.new(config.store_path, list_id).tasks
+  Maildo::List::Tasks.new(CONFIG.store_path, list_id).tasks
 end
