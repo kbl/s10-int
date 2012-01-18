@@ -21,19 +21,20 @@ module Maildo
     def initialize_email
       Mail.defaults do
         retriever_method :imap,
-                       { address: 'imap.gmail.com',
-                         port: 993,
-                         user_name: ENV['MAILDO_MAIL'],
-                         password: ENV['MAILDO_PASS'],
-                         enable_ssl: true }
+                         address:             'imap.gmail.com',
+                         port:                993,
+                         user_name:           ENV['MAILDO_MAIL'],
+                         password:            ENV['MAILDO_PASS'],
+                         enable_ssl:          true
+
         delivery_method :smtp,
-                      { address: 'smtp.gmail.com',
-                        port: 587,
-                        domain: 'rmu-maildo.com',
-                        user_name: ENV['MAILDO_MAIL'],
-                        password: ENV['MAILDO_PASS'],
-                        authentication: 'plain',
-                        enable_starttls_auto: true }
+                        address:              'smtp.gmail.com',
+                        port:                 587,
+                        domain:               'rmu-maildo.com',
+                        user_name:            ENV['MAILDO_MAIL'],
+                        password:             ENV['MAILDO_PASS'],
+                        authentication:       'plain',
+                        enable_starttls_auto: true
       end
     end
 

@@ -2,19 +2,17 @@ module Maildo
   class Dispatcher
 
     def initialize(parser = Message::Parser.new, mail_server = MailServer.new)
-      @parser, @mail_server = parser, mail_server
+      @parser = parser
+      @mail_server = mail_server
     end
 
     def tick
       Maildo.logger.debug('tick')
 
       mails = @mail_server.retrieve_and_delete_all
-      responses = mails.map do |mail|
-        dispatch(mail).execute
-      end
-      responses.each do |response|
-        send_email(response)
-      end
+      mails
+        .map { |mail| dispatch(mail).execute }
+        .each { |response| send_email(response) }
     end
 
     private 
