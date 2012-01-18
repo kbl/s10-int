@@ -17,7 +17,7 @@ end
 
 @@config = Maildo::Config.new do
   @store_path = File.join(File.dirname(__FILE__), 'test-lists')
-  @logdev = nil
+  @logger = Logger.new(nil)
 end
 
 def config
