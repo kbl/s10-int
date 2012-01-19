@@ -1,8 +1,6 @@
 module Maildo
   module Looper
 
-    CHECK_INTERVAL = 2
-
     def self.start(dispatcher = Dispatcher.new)
       EM.run do
         start_timer(dispatcher)
@@ -12,7 +10,7 @@ module Maildo
     private
 
     def self.start_timer(dispatcher)
-      timer = EventMachine::PeriodicTimer.new(CHECK_INTERVAL) do
+      EventMachine::PeriodicTimer.new(Config.check_interval) do
         dispatcher.tick
       end
     end
