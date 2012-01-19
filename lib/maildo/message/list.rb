@@ -7,7 +7,9 @@ module Maildo
       include TasksAwareMessage
       
       def initialize(sender, list_id)
-        initialize_message(sender, list_id)
+        initialize_sender(sender)
+        initialize_subscribers(sender, list_id)
+        initialize_tasks(sender, list_id)
       end
 
       def execute

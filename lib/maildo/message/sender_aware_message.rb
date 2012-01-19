@@ -4,11 +4,11 @@ module Maildo
 
       attr_reader :sender
 
-      def initialize_message(sender, list_id)
+      private
+
+      def initialize_sender(sender)
         @sender = sender
       end
-
-      private
 
       def response(subject, body)
         Response.new(sender, subject, body)
