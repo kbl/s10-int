@@ -10,9 +10,10 @@ module Maildo
       Maildo.logger.debug('tick')
 
       mails = @mail_server.retrieve_and_delete_all
-      mails
-        .map { |mail| dispatch(mail).execute }
-        .each { |response| send_email(response) }
+      mails.each do |mail| 
+        response = dispatch(mail).execute 
+        send_email(response) 
+      end
     end
 
     private 
