@@ -1,8 +1,9 @@
 module Maildo
   class Dispatcher
 
-    def initialize(parser = Message::Parser.new, mail_server = MailServer.new)
-      @parser = parser
+    def initialize(parser = Message::Parser.new, 
+                   mail_server = MailServer.new)
+      @parser      = parser
       @mail_server = mail_server
     end
 

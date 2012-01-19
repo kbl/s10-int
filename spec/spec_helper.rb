@@ -12,12 +12,12 @@ RSpec.configure do |config|
 end
 
 def email(f, s)
-  { subject: s, from: f }
+  { from: f, subject: s }
 end
 
 CONFIG = Maildo::Config.new do
-  @store_path = File.join(File.dirname(__FILE__), 'test-lists')
-  @logger = Logger.new(nil)
+  set_store_path File.join(File.dirname(__FILE__), 'test-lists')
+  set_logger     Logger.new(nil)
 end
 
 def empty_test_list_dir
