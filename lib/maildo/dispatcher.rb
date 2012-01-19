@@ -8,7 +8,7 @@ module Maildo
     end
 
     def tick
-      Maildo.logger.debug('tick')
+      Config.logger.debug('tick')
 
       mails = @mail_server.retrieve_and_delete_all
       mails.each do |mail| 
@@ -24,7 +24,7 @@ module Maildo
     end
 
     def send_email(response)
-      Maildo.logger.debug("sending response: #{response}")
+      Config.logger.debug("sending response: #{response}")
       response.mail.deliver!
     end
 

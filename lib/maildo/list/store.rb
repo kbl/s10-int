@@ -2,8 +2,8 @@ module Maildo
   module List
     class Store
 
-      def initialize(store_path, list_id)
-        @path = File.join(store_path, list_id)
+      def initialize(list_id)
+        @path = File.join(Config.store_path, list_id)
       end
 
       def add(key, value)

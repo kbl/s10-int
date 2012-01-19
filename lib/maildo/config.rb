@@ -1,35 +1,20 @@
 module Maildo
 
-  class << self
-    attr_accessor :logger
-  end
+  Config = Object.new
 
-  class Config
+  class << Config
 
     DEFAULT_LOGGER = Logger.new(STDOUT)
+    DEFAULT_STORE_PATH = ENV['MAILDO_STORE_PATH']
 
-    attr_reader :store_path
+    attr_writer :logger, :store_path
 
-    def initialize(&block)
-      instance_eval &block if block_given?
-      set_default_values
-
-      Maildo.logger = @logger
-    end
-
-    private
-
-    def set_store_path(path)
-      @store_path = path
-    end
-
-    def set_logger(logger)
-      @logger = logger
-    end
-
-    def set_default_values
+    def logger
       @logger ||= DEFAULT_LOGGER
-      @store_path ||= ENV['MAILDO_STORE_PATH']
+    end
+
+    def store_path
+      @store_path ||= DEFAULT_STORE_PATH
     end
 
   end

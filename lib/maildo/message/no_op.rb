@@ -2,7 +2,7 @@ module Maildo
   module Message
     class NoOp
 
-      def initialize(config, sender, subject)
+      def initialize(sender, subject)
         @sender, @subject = sender, subject
       end
 

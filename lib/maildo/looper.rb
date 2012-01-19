@@ -1,7 +1,7 @@
 module Maildo
   module Looper
 
-    CHECK_INTERVAL = 20
+    CHECK_INTERVAL = 2
 
     def self.start(dispatcher = Dispatcher.new)
       EM.run do

@@ -1,4 +1,4 @@
-require 'maildo'
+require_relative '../lib/maildo'
 
 Mail.defaults do
   delivery_method :test
@@ -15,10 +15,9 @@ def email(f, s)
   { from: f, subject: s }
 end
 
-CONFIG = Maildo::Config.new do
-  set_store_path File.join(File.dirname(__FILE__), 'test-lists')
-  set_logger     Logger.new(nil)
-end
+CONFIG = Maildo::Config
+CONFIG.logger = Logger.new(nil)
+CONFIG.store_path = File.join(File.dirname(__FILE__), 'test-lists')
 
 def empty_test_list_dir
   Dir.new(CONFIG.store_path).each do |f|
@@ -38,9 +37,9 @@ def store_path(list_id)
 end
 
 def subscribers(list_id)
-  Maildo::List::Subscribers.new(CONFIG.store_path, list_id).subscribers
+  Maildo::List::Subscribers.new(list_id).subscribers
 end
 
 def tasks(list_id)
-  Maildo::List::Tasks.new(CONFIG.store_path, list_id).tasks
+  Maildo::List::Tasks.new(list_id).tasks
 end

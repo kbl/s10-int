@@ -5,10 +5,6 @@ module Maildo
       include SenderAwareMessage
       include SubscribersAwareMessage
 
-      def initialize(config, sender, list_id)
-        super
-      end
-
       def execute
         if @subscribers.subscribed?(sender)
           return response('Illegal action', "You are already subscribed to list [#{list_id}].")

@@ -6,10 +6,6 @@ module Maildo
       include SubscribersAwareMessage
       include TasksAwareMessage
       
-      def initialize(config, sender, list_id)
-        super
-      end
-
       def execute
         response = super
         return response if response

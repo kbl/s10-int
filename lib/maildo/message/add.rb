@@ -8,8 +8,8 @@ module Maildo
       
       attr_reader :body
 
-      def initialize(config, sender, list_id, body)
-        super(config, sender, list_id)
+      def initialize(sender, list_id, body)
+        super(sender, list_id)
         @body = body
       end
 

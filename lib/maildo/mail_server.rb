@@ -11,7 +11,7 @@ module Maildo
       emails = messages.map do |msg|
         { subject: msg.subject, from: msg.from[0] }
       end
-      Maildo.logger.debug("emails: #{emails.length}")
+      Config.logger.debug("emails: #{emails.length}")
 
       emails
     end
