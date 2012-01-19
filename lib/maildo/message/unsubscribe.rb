@@ -5,6 +5,10 @@ module Maildo
       include SenderAwareMessage
       include SubscribersAwareMessage
 
+      def initialize(sender, list_id)
+        initialize_message(sender, list_id)
+      end
+
       def execute
         unless @subscribers.subscribed?(sender)
           return response('Access denied', "You aren't allowed to send such message. Please subscribe to [#{list_id}]")

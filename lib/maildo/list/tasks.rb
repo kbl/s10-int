@@ -9,6 +9,10 @@ module Maildo
 
       include PersistencyAware
 
+      def initialize(list_id)
+        @list_id = list_id
+      end
+
       def add(task)
         store.add(:tasks, task)
       end

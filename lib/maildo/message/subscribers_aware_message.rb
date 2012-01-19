@@ -4,10 +4,11 @@ module Maildo
 
       attr_reader :list_id
       
-      def initialize(sender, list_id)
-        super(sender)
+      def initialize_message(sender, list_id)
         @list_id = list_id
         @subscribers = Maildo::List::Subscribers.new(list_id)
+
+        super
       end
 
     end

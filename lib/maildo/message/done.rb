@@ -9,8 +9,8 @@ module Maildo
       attr_reader :task_id
 
       def initialize(sender, list_id, task_id)
-        super(sender, list_id)
         @task_id = task_id
+        initialize_message(sender, list_id)
       end
 
       def execute

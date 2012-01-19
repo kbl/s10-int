@@ -4,8 +4,7 @@ module Maildo
 
       attr_reader :sender
 
-      def initialize(sender)
-        super
+      def initialize_message(sender, list_id)
         @sender = sender
       end
 

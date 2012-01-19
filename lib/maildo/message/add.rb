@@ -9,8 +9,8 @@ module Maildo
       attr_reader :body
 
       def initialize(sender, list_id, body)
-        super(sender, list_id)
         @body = body
+        initialize_message(sender, list_id)
       end
 
       def execute

@@ -4,6 +4,10 @@ module Maildo
 
       include PersistencyAware
 
+      def initialize(list_id)
+        @list_id = list_id
+      end
+
       def subscribe(subscriber)
         store.add(:subscribers, subscriber)
       end
