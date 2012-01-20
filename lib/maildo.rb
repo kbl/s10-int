@@ -2,6 +2,7 @@ require 'logger'
 require 'pstore'
 require 'mail'
 require 'eventmachine'
+require 'set'
 
 require_relative 'maildo/version'
 

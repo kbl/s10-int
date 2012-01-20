@@ -2,13 +2,20 @@ module Maildo
   module Message
     class Parser
 
-      VALID_SUBJECTS = {
-        /^DONE \[(\w+)\]\s+(.+?)\s*$/ => Maildo::Message::Done,
-        /^ADD \[(\w+)\]\s+(.+?)\s*$/ => Maildo::Message::Add,
-        /^LIST \[(\w+)\]\s*$/ => Maildo::Message::List,
-        /^SUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Subscribe,
-        /^UNSUBSCRIBE \[(\w+)\]\s*$/ => Maildo::Message::Unsubscribe
-      }
+      def initialize
+        @patterns = Hash.new { |hash, key| hash[key] = Set.new }
+        @handlers = {}
+
+        initialize_default_handlers
+      end
+
+      def define_pattern(name, pattern)
+        @patterns[name] << pattern
+      end
+
+      def register_handler(name, &block)
+        @handlers[name] = block
+      end
 
       def parse(message)
         Config.logger.debug("parsing email: #{message}")
@@ -16,14 +23,46 @@ module Maildo
         subject = message[:subject]
         from = message[:from]
 
-        VALID_SUBJECTS.each do |re, klass|
-          match = re.match(subject)
-          if match
-            sender_with_additional_params = [from] + match.captures()
-            return klass.new(*sender_with_additional_params)
+        @patterns.each do |handler_name, patterns|
+          patterns.each do |re|
+            match = re.match(subject)
+            if match
+              sender_with_additional_params = [from] + match.captures()
+              return @handlers[handler_name].call(*sender_with_additional_params)
+            end
           end
         end
+
         return Maildo::Message::NoOp.new(from, subject)
+      end
+
+      private
+
+      def initialize_default_handlers
+        define_pattern(:done, /^DONE \[(\w+)\]\s+(.+?)\s*$/)
+        register_handler(:done) do |sender, list_id, task_id |
+          Maildo::Message::Done.new(sender, list_id, task_id)
+        end
+
+        define_pattern(:add, /^ADD \[(\w+)\]\s+(.+?)\s*$/)
+        register_handler(:add) do |sender, list_id, task|
+          Maildo::Message::Add.new(sender, list_id, task)
+        end
+
+        define_pattern(:list, /^LIST \[(\w+)\]\s*$/)
+        register_handler(:list) do |sender, list_id|
+          Maildo::Message::List.new(sender, list_id)
+        end
+
+        define_pattern(:subscribe, /^SUBSCRIBE \[(\w+)\]\s*$/)
+        register_handler(:subscribe) do |sender, list_id|
+          Maildo::Message::Subscribe.new(sender, list_id)
+        end
+
+        define_pattern(:unsubscribe, /^UNSUBSCRIBE \[(\w+)\]\s*$/)
+        register_handler(:unsubscribe) do |sender, list_id|
+          Maildo::Message::Unsubscribe.new(sender, list_id)
+        end
       end
 
     end
