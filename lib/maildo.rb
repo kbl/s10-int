@@ -16,6 +16,8 @@ require_relative 'maildo/list/persistency_aware'
 require_relative 'maildo/list/subscribers'
 require_relative 'maildo/list/tasks'
 
+require_relative 'maildo/message/handler'
+
 require_relative 'maildo/message/response'
 require_relative 'maildo/message/no_op'
 require_relative 'maildo/message/sender_aware_message'
@@ -26,5 +28,3 @@ require_relative 'maildo/message/tasks_aware_message'
 require_relative 'maildo/message/add'
 require_relative 'maildo/message/done'
 require_relative 'maildo/message/list'
-
-require_relative 'maildo/message/parser'

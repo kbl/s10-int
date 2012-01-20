@@ -1,6 +1,6 @@
 module Maildo
   module Message
-    class Parser
+    class Handler
 
       def initialize
         @patterns = Hash.new { |hash, key| hash[key] = Set.new }
@@ -17,7 +17,7 @@ module Maildo
         @handlers[name] = block
       end
 
-      def parse(message)
+      def handle(message)
         Config.logger.debug("parsing email: #{message}")
 
         subject = message[:subject]

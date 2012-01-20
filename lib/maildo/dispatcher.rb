@@ -1,9 +1,9 @@
 module Maildo
   class Dispatcher
 
-    def initialize(parser = Message::Parser.new, 
+    def initialize(handler = Message::Handler.new, 
                    mail_server = MailServer.new)
-      @parser      = parser
+      @handler     = handler
       @mail_server = mail_server
     end
 
@@ -11,16 +11,13 @@ module Maildo
       Config.logger.debug('tick')
 
       mails = @mail_server.retrieve_and_delete_all
-      mails.each do |mail| 
-        response = dispatch(mail).execute 
-        send_email(response) 
-      end
+      mails.each { |message| send_email(response(message)) }
     end
 
     private 
 
-    def dispatch(message)
-      @parser.parse(message)
+    def response(message)
+      @handler.handle(message).execute                                                                                          
     end
 
     def send_email(response)
